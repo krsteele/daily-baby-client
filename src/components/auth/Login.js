@@ -1,5 +1,7 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+import Button from "react-bootstrap/Button"
+
 
 
 export const Login = () => {
@@ -43,7 +45,7 @@ export const Login = () => {
         </dialog>
         <section>
             <form className="form--login" onSubmit={handleLogin}>
-            <h1>Rare</h1>
+            <h1>Daily Baby</h1>
             <h2>Please sign in</h2>
             <fieldset>
                 <label htmlFor="inputUsername"> Username </label>
@@ -75,9 +77,9 @@ export const Login = () => {
                 textAlign: "center",
                 }}
             >
-                <button className="btn btn-1 btn-sep icon-send" type="submit">
+                <Button className="btn btn-1 btn-sep icon-send" type="submit">
                 Sign In
-                </button>
+                </Button>
             </fieldset>
             </form>
         </section>
