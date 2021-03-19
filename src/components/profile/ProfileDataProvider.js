@@ -30,7 +30,7 @@ export const ProfileDataProvider = (props) => {
             <ProfileContext.Provider
                 value={{
                     getProfile,
-                    Profile,
+                    profile,
                     updateProfile
                 }}
                 >
