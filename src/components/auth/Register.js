@@ -1,5 +1,7 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+import Button from "react-bootstrap/Button"
+
 
 export const Register = (props) => {
     const history = useHistory()
@@ -127,9 +129,9 @@ export const Register = (props) => {
                 textAlign: "center",
             }}
             >
-            <button className="btn btn-1 btn-sep icon-send" type="submit">
+            <Button className="btn btn-1 btn-sep icon-send" type="submit">
                 Register
-            </button>
+            </Button>
             </fieldset>
         </form>
         <section className="link--register">
