@@ -1,8 +1,9 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { ProfileDataProvider } from "./profile/ProfileDataProvider"
-
 import { ProfileDetail } from "./profile/ProfileDetail"
+import { BabyDataProvider } from "./baby/BabyDataProvider"
+import { BabyDetail } from "./baby/BabyDetail"
 
 
 export const ApplicationViews = () => {
@@ -13,6 +14,9 @@ export const ApplicationViews = () => {
                     props => <ProfileDetail {...props} />
                 } />
             </ProfileDataProvider>
+            <BabyDataProvider>
+                
+            </BabyDataProvider>
         </>
     )
 }
