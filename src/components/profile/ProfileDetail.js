@@ -7,14 +7,20 @@ import { ProfileContext } from "./ProfileDataProvider"
 
 export const ProfileDetail = (props) => {
 
-    const { getProfile, profile } = useContext(ProfileContext)
+    const { getProfile } = useContext(ProfileContext)
+    const [profile, setProfile] = useState({dailyuser:{user:{}}, dailyuser_days: [], userbabies: []})
+
 
     useEffect(() => {
         getProfile()
+            .then((returnedProfile) => {
+                setProfile(returnedProfile)
+            })
     }, [])
 
     
     console.log("gotten profile", profile)
+
     return(
         <>
             <h1>Profile</h1>
@@ -24,10 +30,13 @@ export const ProfileDetail = (props) => {
             <p><b>Email:</b> {profile.dailyuser.user.email}</p>
 
             <h3>Preferences</h3>
-            <p class="lead">When and where would you like to receive journal text message reminders?</p>
+            <p className="lead">When and where would you like to receive journal text message reminders?</p>
             <p><b>Phone number:</b> {profile.dailyuser.phone_number}</p>
-            <p><b>Reminder frequency:</b> </p>
-
+            <p><b>Reminder frequency: </b></p>
+                <ul>
+                    {profile.dailyuser_days.map(day => <li>{day.day.day}</li>)}
+                </ul>
+                
         </>
     )
 }
