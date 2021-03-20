@@ -4,8 +4,7 @@ import { ProfileContext } from "./ProfileDataProvider"
 
 // react-bootstrap components
 import Container from 'react-bootstrap/Container'
-import ListGroup from 'react-bootstrap/ListGroup'
-
+import Card from 'react-bootstrap/Card'
 
 export const ProfileDetail = (props) => {
 
@@ -21,7 +20,6 @@ export const ProfileDetail = (props) => {
     }, [])
 
     
-    console.log("gotten profile", profile)
 
     return(
         <Container>
@@ -49,15 +47,23 @@ export const ProfileDetail = (props) => {
                     ?
                     <p>Please add a child to begin your journal.</p>
                     :
-                    <ListGroup>
-                    {
-                        profile.userbabies.map(baby => {
-                            return (
-                                <ListGroup.Item action href={`babies/${baby.baby.id}`} key={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</ListGroup.Item>
-                            )
+                    profile.userbabies.map(baby => {
+                        return (
+                            <Card border="primary" style={{ width: '18rem' }} key={baby.baby.id}>
+                                <Card.Header>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</Card.Header>
+                                <Card.Body>
+                                <Card.Text>
+                                    Born {baby.baby.birth_date}
+                                </Card.Text>
+                                </Card.Body>
+                                <Card.Body>
+                                    <Card.Link href="#">View Journal Entries</Card.Link>
+                                    <Card.Link href="#">Edit Information</Card.Link>
+                                    <Card.Link href="#">Add Journal Entry</Card.Link>
+                                </Card.Body>
+                            </Card>
+                        )
                     })
-                }
-                </ListGroup>
                 }
             </div>
                 
