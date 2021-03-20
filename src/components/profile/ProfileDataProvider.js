@@ -3,7 +3,6 @@ import React, {useState} from "react"
 export const ProfileContext = React.createContext()
 
 export const ProfileDataProvider = (props) => {
-    const [profile, setProfile] = useState([{dailyuser:{user:{}}, dailyuser_days: [{day: {}}], userbabies: []}])
 
     const getProfile = () => {
         return fetch("http://localhost:8000/profile", {
@@ -12,7 +11,6 @@ export const ProfileDataProvider = (props) => {
             },
         })
             .then(res => res.json())
-            .then(setProfile)
     }
 
     const updateProfile = (profile) => {
@@ -30,7 +28,6 @@ export const ProfileDataProvider = (props) => {
             <ProfileContext.Provider
                 value={{
                     getProfile,
-                    profile,
                     updateProfile
                 }}
                 >
