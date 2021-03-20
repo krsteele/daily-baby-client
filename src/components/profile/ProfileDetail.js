@@ -57,7 +57,7 @@ export const ProfileDetail = (props) => {
                                 </Card.Text>
                                 </Card.Body>
                                 <Card.Body>
-                                    <Card.Link href="#">View Journal Entries</Card.Link>
+                                    <Card.Link href={`/journal/${baby.baby.id}`}>View Journal Entries</Card.Link>
                                     <Card.Link href="#">Edit Information</Card.Link>
                                     <Card.Link href="#">Add Journal Entry</Card.Link>
                                 </Card.Body>
