@@ -16,13 +16,13 @@ export const ApplicationViews = () => {
                 } />
             </ProfileDataProvider>
             <JournalDataProvider>
-                <Route path="/journal/:babyId(\d+)" render={
-                    props => <JournalList {...props} />
-                } />
+                <BabyDataProvider>
+                    <Route path="/journal/:babyId(\d+)" render={
+                        props => <JournalList {...props} />
+                    } />
+                </BabyDataProvider>
             </JournalDataProvider>
-            <BabyDataProvider>
                 
-            </BabyDataProvider>
         </>
     )
 }
