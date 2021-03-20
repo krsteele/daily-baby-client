@@ -3,7 +3,7 @@ import React, {useState} from "react"
 export const JournalContext = React.createContext()
 
 export const JournalDataProvider = (props) => {
-    const [entries, setEntries] = useState([])
+    const [entries, setEntries] = useState([{photo: {}, user_baby: {baby: {}, user: {user: {}}}}])
 
     const getJournal = (id) => {
         return fetch(`http://localhost:8000/entries?babyId=${id}`, {
