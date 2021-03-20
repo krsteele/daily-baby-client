@@ -13,13 +13,21 @@ export const ProfileDetail = (props) => {
         getProfile()
     }, [])
 
-    useEffect(() => {
-        console.log("gotten profile", profile)
-    }, [profile])
-
+    
+    console.log("gotten profile", profile)
     return(
         <>
-            <div>Hey, I'm a profile!</div>
+            <h1>Profile</h1>
+            <h3>Personal Information</h3>
+            <p><b>Name:</b> {profile.dailyuser.user.first_name} {profile.dailyuser.user.last_name}</p>
+            <p><b>Username:</b> {profile.dailyuser.user.username}</p>
+            <p><b>Email:</b> {profile.dailyuser.user.email}</p>
+
+            <h3>Preferences</h3>
+            <p class="lead">When and where would you like to receive journal text message reminders?</p>
+            <p><b>Phone number:</b> {profile.dailyuser.phone_number}</p>
+            <p><b>Reminder frequency:</b> </p>
+
         </>
     )
 }

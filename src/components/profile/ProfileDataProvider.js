@@ -3,7 +3,7 @@ import React, {useState} from "react"
 export const ProfileContext = React.createContext()
 
 export const ProfileDataProvider = (props) => {
-    const [profile, setProfile] = useState([])
+    const [profile, setProfile] = useState([{dailyuser:{user:{}}, dailyuser_days: [{day: {}}], userbabies: []}])
 
     const getProfile = () => {
         return fetch("http://localhost:8000/profile", {
