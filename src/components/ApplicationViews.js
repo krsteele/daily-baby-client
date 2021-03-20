@@ -3,7 +3,8 @@ import { Route } from "react-router-dom"
 import { ProfileDataProvider } from "./profile/ProfileDataProvider"
 import { ProfileDetail } from "./profile/ProfileDetail"
 import { BabyDataProvider } from "./baby/BabyDataProvider"
-import { BabyDetail } from "./baby/BabyDetail"
+import { JournalDataProvider } from "./Journal/JournalDataProvider"
+import { JournalList } from "./Journal/JournalList"
 
 
 export const ApplicationViews = () => {
@@ -14,6 +15,11 @@ export const ApplicationViews = () => {
                     props => <ProfileDetail {...props} />
                 } />
             </ProfileDataProvider>
+            <JournalDataProvider>
+                <Route path="/journal/:babyId(\d+)" render={
+                    props => <JournalList {...props} />
+                } />
+            </JournalDataProvider>
             <BabyDataProvider>
                 
             </BabyDataProvider>
