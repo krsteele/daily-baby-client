@@ -1,29 +1,42 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { JournalContext } from "./JournalDataProvider"
+import { BabyContext } from "../baby/BabyDataProvider"
 
 import Card from 'react-bootstrap/Card'
-import { Container } from "react-bootstrap"
+import Container from "react-bootstrap/Container"
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 
 export const JournalList = (props) => {
     const { getJournal, entries } = useContext(JournalContext)
+    const { getBaby } = useContext(BabyContext)
+    const [baby, setBaby] = useState({})
 
     useEffect(() => {
         const baby = parseInt(props.match.params.babyId)
-
+        getBaby(baby).then(babyObj => setBaby(babyObj))
         getJournal(baby)
     }, [])
     console.log(entries)
     return(
-        <Container fluid>
-            <ul>
+        <Container>
+            <h1>{baby.first_name}'s Journal</h1>
+            <Row xs={1} sm={2} md={3} lg={4} xl={5}>
 
                 {
                     entries.map(entry => {
-                        return <li>{entry.id}</li>
+                        return  <Col>
+                                    <Card key={entry.id}>
+                                        <Card.Img variant="top" src={entry.photo.image} />
+                                        <Card.Body>{entry.text}</Card.Body>
+                                        <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
+                                    </Card>
+                                </Col>
                         
                     })
                 }
-            </ul>
+            </Row>
             
         </Container>
     )
