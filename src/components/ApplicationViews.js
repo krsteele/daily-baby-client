@@ -20,6 +20,12 @@ export const ApplicationViews = () => {
                     <Route path="/journal/:babyId(\d+)" render={
                         props => <JournalList {...props} />
                     } />
+                    <Route exact path="/journal/create" render={
+                            props => <JournalForm {...props} />
+                        } />
+                    <Route path="/journal/edit/:entryId(\d+)" render={
+                        props => <JournalForm {...props} />
+                    } />
                 </BabyDataProvider>
             </JournalDataProvider>
                 
