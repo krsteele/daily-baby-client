@@ -15,6 +15,15 @@ export const JournalDataProvider = (props) => {
             .then(setEntries)
     }
 
+    const getEntry = (id) => {
+        return fetch(`http://localhost:8000/entries/${id}`, {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("db_token")}`,
+            },
+        })
+            .then(res => res.json())
+    }
+
     const addJournalEntry = (entry) => {
         return fetch("http://localhost:8000/entries", {
             method: "POST",
@@ -41,6 +50,7 @@ export const JournalDataProvider = (props) => {
             <JournalContext.Provider
                 value={{
                     getJournal,
+                    getEntry,
                     entries,
                     addJournalEntry,
                     updateJournalEntry
