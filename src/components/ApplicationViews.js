@@ -5,6 +5,7 @@ import { ProfileDetail } from "./profile/ProfileDetail"
 import { BabyDataProvider } from "./baby/BabyDataProvider"
 import { JournalDataProvider } from "./Journal/JournalDataProvider"
 import { JournalList } from "./Journal/JournalList"
+import { JournalForm } from "./Journal/JournalForm"
 
 
 export const ApplicationViews = () => {
