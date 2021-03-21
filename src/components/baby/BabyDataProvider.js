@@ -4,6 +4,18 @@ export const BabyContext = React.createContext()
 
 export const BabyDataProvider = (props) => {
 
+    const [babies, setBabies] = useState([])
+
+    const getBabies = () => {
+        return fetch("http://localhost:8000/babies", {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("db_token")}`,
+            },
+        })
+            .then(res => res.json())
+            .then(setBabies)
+    }
+
     const getBaby = (id) => {
         return fetch(`http://localhost:8000/babies/${id}`, {
             headers: {
@@ -38,6 +50,8 @@ export const BabyDataProvider = (props) => {
         return (
             <BabyContext.Provider
                 value={{
+                    getBabies,
+                    babies,
                     getBaby,
                     updateBaby,
                     createBaby
