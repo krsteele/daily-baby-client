@@ -26,8 +26,8 @@ export const JournalList = (props) => {
 
                 {
                     entries.map(entry => {
-                        return  <Col>
-                                    <Card key={entry.id}>
+                        return  <Col key={entry.id}>
+                                    <Card >
                                         <Card.Img variant="top" src={entry.photo.image} />
                                         <Card.Body>{entry.text}</Card.Body>
                                         <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
