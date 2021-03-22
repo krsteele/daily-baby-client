@@ -13,7 +13,7 @@ import Container from "react-bootstrap/Container"
 import Image from 'react-bootstrap/Image'
 
 export const JournalForm = (props) => {
-    const { getEntry, addJournalEntry, updateJournalEntry } = useContext(JournalContext)
+    const { getEntry, addJournalEntry, updateJournalEntry, deleteEntry } = useContext(JournalContext)
     const { getBabies, babies } = useContext(BabyContext)
     
     const [entry, setEntry] = useState({photo: {}, user_baby: {baby: {}, user: {user: {}}}})
@@ -139,6 +139,7 @@ export const JournalForm = (props) => {
                             <Form.Group>
                             <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
                             <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
+                            <Button className="btn" variant="outline-primary" onClick={() => deleteEntry(entryId).then(()=> props.history.push("/journal"))}>Delete</Button>
                             </Form.Group>
                         ):(
                             <Form.Group>
