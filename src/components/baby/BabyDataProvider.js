@@ -5,6 +5,7 @@ export const BabyContext = React.createContext()
 export const BabyDataProvider = (props) => {
 
     const [babies, setBabies] = useState([])
+    const [relationships, setRelationships] = useState([])
 
     const getBabies = () => {
         return fetch("http://localhost:8000/babies", {
@@ -47,6 +48,16 @@ export const BabyDataProvider = (props) => {
             })
         }
 
+        const getRelationships = () => {
+            return fetch("http://localhost:8000/relationships", {
+                headers: {
+                    "Authorization": `Token ${localStorage.getItem("db_token")}`,
+                },
+            })
+                .then(res => res.json())
+                .then(setRelationships)
+        }
+
         return (
             <BabyContext.Provider
                 value={{
@@ -54,7 +65,9 @@ export const BabyDataProvider = (props) => {
                     babies,
                     getBaby,
                     updateBaby,
-                    createBaby
+                    createBaby,
+                    getRelationships,
+                    relationships
                 }}
                 >
                 {props.children}
