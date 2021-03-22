@@ -7,6 +7,9 @@ import Container from "react-bootstrap/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export const JournalList = (props) => {
     const { getJournal, entries } = useContext(JournalContext)
@@ -26,10 +29,19 @@ export const JournalList = (props) => {
 
                 {
                     entries.map(entry => {
-                        return  <Col>
-                                    <Card key={entry.id}>
-                                        <Card.Img variant="top" src={entry.photo.image} />
-                                        <Card.Body>{entry.text}</Card.Body>
+                        return  <Col key={entry.id+"entry"}>
+                                    <Card >
+                                        {
+                                            entry.photo === null ? (
+                                                ""
+                                            ):(
+
+                                                <Card.Img variant="top" src={entry.photo.image} />
+                                            )
+                                        }
+                                        <Card.Body>{entry.text}
+                                        <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/journal/edit/${entry.id}`)} />
+                                        </Card.Body>
                                         <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
                                 </Col>
