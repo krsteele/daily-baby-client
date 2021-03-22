@@ -11,8 +11,7 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 
 export const BabyForm = (props) => {
-    const { getBaby, createBaby, updateBaby, getRelationships, relationships } = useContext(JournalContext)
-    const { getBabies, babies } = useContext(BabyContext)
+    const { getBaby, createBaby, updateBaby, getRelationships, relationships } = useContext(BabyContext)
     
     const [baby, setBaby] = useState({})
     const [image, setImage] = useState("")
@@ -28,4 +27,25 @@ export const BabyForm = (props) => {
         getRelationships()
         getBabyInEditMode()
     }, [])
+
+    // Check for edit mode
+    // If edit mode, get and set baby to be updated
+    const editMode = props.match.params.hasOwnProperty("entryId")
+    const babyId = props.match.params.babyId
+
+    const getBabyInEditMode = () => {
+        if (editMode) {
+            getBaby(babyId).then(setBaby).then(() => {
+                const babyImage = baby.photo.image
+                setEditModeImage(babyImage)
+                setFileInputLabel("Change Image")
+            })
+        } 
+    }
+
+    return (
+        <Container>
+            I'm the baby form!
+        </Container>
+    )
 }
