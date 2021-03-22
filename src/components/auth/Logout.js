@@ -11,11 +11,9 @@ export const Logout = (props) => {
     
     return (
                 <form onSubmit={handleLogout}>
-                    <fieldset>
-                        <Button type="submit" variant="secondary">
-                            Log out
-                        </Button>
-                    </fieldset>
+                    <Button type="submit" size="lg" variant="primary">
+                        Log out
+                    </Button>
                 </form>
     )
 }
