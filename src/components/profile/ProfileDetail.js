@@ -5,6 +5,12 @@ import { ProfileContext } from "./ProfileDataProvider"
 // react-bootstrap components
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ProfileDetail = (props) => {
 
@@ -57,9 +63,9 @@ export const ProfileDetail = (props) => {
                                 </Card.Text>
                                 </Card.Body>
                                 <Card.Body>
-                                    <Card.Link href={`/journal/${baby.baby.id}`}>View Journal Entries</Card.Link>
-                                    <Card.Link href="#">Edit Information</Card.Link>
-                                    <Card.Link href="#">Add Journal Entry</Card.Link>
+                                    <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
+                                    <FontAwesomeIcon icon={faEdit} onClick={() => console.log("Don't click the baby!")} />
+                                    <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
                                 </Card.Body>
                             </Card>
                         )
