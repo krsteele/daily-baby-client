@@ -28,6 +28,7 @@ export const JournalForm = (props) => {
     // Get data needed to render dropdown
     useEffect(() => {
         getBabies()
+        getEntryInEditMode()
     }, [])
     // Check for edit mode
     // If edit mode, get and set entry to be updated
@@ -40,9 +41,7 @@ export const JournalForm = (props) => {
         }
     };
 
-    useEffect(() => {
-        getEntryInEditMode();
-    }, [babies]);
+    console.log("the babies you requested", babies)
 
 
     // Called on form submit to create or edit the entry
@@ -95,18 +94,24 @@ export const JournalForm = (props) => {
     return (
         <Container>
             <h2>New Journal Entry</h2>
+
             <Form onSubmit={handleSubmit(entryAddOrUpdate)}>
+
                 <Form.Group controlId="form__baby">
                     <Form.Label>Child</Form.Label>
-                    <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select" value={entry.user_baby.baby.nickname}>
-                    <option key="0" value="null">Who is your entry about?</option>
-                    {
-                        babies.map(baby => (
-                            <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
-                        ))
-                    }
-                    </Form.Control>
+                        {editMode ? (
+                        <p>{entry.user_baby.baby.first_name} {entry.user_baby.baby.middle_name} {entry.user_baby.baby.last_name}</p>
+                        ) : (
+                        <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
+                        <option key="0" value="null">Who is your entry about?</option>
+                        
+                            {babies.map(baby => {
+                                <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
+                            })}
+                        </Form.Control>
+                        )}
                 </Form.Group>
+
                 <Form.Group>
                     <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label="Upload an image" onChange={uploadImage}  />
                     {loading ? (
