@@ -19,7 +19,6 @@ export const JournalForm = (props) => {
     const [entry, setEntry] = useState({photo: {}, user_baby: {baby: {}, user: {user: {}}}})
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
-    const [loading, setLoading] = useState(false)
     const [fileInputLabel, setFileInputLabel] = useState("Upload an image")
 
 
@@ -39,19 +38,15 @@ export const JournalForm = (props) => {
     const getEntryInEditMode = () => {
         if (editMode) {
             getEntry(entryId).then(setEntry).then(() => {
-                entryImage = entry.photo.image
+                const entryImage = entry.photo.image
                 setEditModeImage(entryImage)
                 setFileInputLabel("Change Image")
-            });
-        }
+            })
+        } 
     };
-
-    console.log("the babies you requested", babies)
-
 
     // Called on form submit to create or edit the entry
     const entryAddOrUpdate = (data) => {
-        console.log("Someone clicked my button!", data)
         if (editMode) {
             data.image = editModeImage
             data.id = entryId
@@ -59,6 +54,7 @@ export const JournalForm = (props) => {
             data.is_private = entry.is_private
             data.prompt = entry.prompt
             data.userBaby = entry.user_baby.id
+            console.log("update data", data)
             updateJournalEntry(data)
                 .then(() => props.history.push(`/journal/${entry.user_baby.baby.id}`))
         } else {
@@ -78,7 +74,7 @@ export const JournalForm = (props) => {
             method: 'POST',
             body: data
         })
-        .then(res = res.json)
+        .then(res => res.json())
     }
 
     const uploadImage = (e) => {
@@ -89,18 +85,20 @@ export const JournalForm = (props) => {
         const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"
         setFileInputLabel("Loading..."); 
         imageUpload(url, data).then(file => {
+            console.log(file)
             if(editMode){
                 setEditModeImage(file.secure_url)
+                console.log("editMode image", file.secure_url)
             }
             else {
                 setImage(file.secure_url)
+                console.log("image", file.secure_url)
             }
         }).then(() => {
             setFileInputLabel("Change Image"); 
         })
+    }
 
-
-    console.log(babies)
     return (
         <Container>
             <h2>New Journal Entry</h2>
@@ -113,10 +111,10 @@ export const JournalForm = (props) => {
                         <p>{entry.user_baby.baby.first_name} {entry.user_baby.baby.middle_name} {entry.user_baby.baby.last_name}</p>
                         ) : (
                         <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
-                        <option key="0" value="null">Who is your entry about?</option>
+                        <option key="0">Who is your entry about?</option>
                         
                             {babies.map(baby => {
-                                <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
+                                return <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
                             })}
                         </Form.Control>
                         )}
@@ -136,21 +134,20 @@ export const JournalForm = (props) => {
                     <Form.Label>What wonderful things are happening in your baby's life right now?</Form.Label>
                     <Form.Control as="textarea" rows={3} key="entryText" name="text" ref={register} defaultValue={entry.text} />
                 </Form.Group>
-                {
-                    editMode ? (
-                        <Form.Group>
-                        <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
-                        <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
-                        </Form.Group>
-                    ):(
-                        <Form.Group>
-                        <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
-                        <Button className="btn" variant="outline-primary" type="button" onClick={reset()} >Cancel</Button>
-                        </Form.Group>
-                        )
-                    }
+                    {
+                        editMode ? (
+                            <Form.Group>
+                            <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
+                            <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
+                            </Form.Group>
+                        ):(
+                            <Form.Group>
+                            <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
+                            <Button className="btn" variant="outline-primary" type="button" onClick={() => reset()} >Cancel</Button>
+                            </Form.Group>
+                            )
+                        }
             </Form>
         </Container>
     )
-}
 }
