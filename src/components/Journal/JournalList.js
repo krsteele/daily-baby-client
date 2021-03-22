@@ -6,13 +6,15 @@ import Card from 'react-bootstrap/Card'
 import Container from "react-bootstrap/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export const JournalList = (props) => {
-    const { getJournal, entries } = useContext(JournalContext)
+    const { getJournal, entries, deleteEntry } = useContext(JournalContext)
     const { getBaby } = useContext(BabyContext)
     const [baby, setBaby] = useState({})
 
@@ -40,7 +42,18 @@ export const JournalList = (props) => {
                                             )
                                         }
                                         <Card.Body>{entry.text}
-                                        <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/journal/edit/${entry.id}`)} />
+                                            {
+                                                entry.by_current_user ? (
+                                                    <ListGroup className="list-group-flush">
+                                                        <ListGroup.Item>
+                                                            <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/journal/edit/${entry.id}`)} />
+                                                            <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.id).then(() => props.history.push(`/journal/${baby.id}`)))} />
+                                                        </ListGroup.Item>
+                                                    </ListGroup>
+                                                ):(
+                                                    ""
+                                                )
+                                            }
                                         </Card.Body>
                                         <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
