@@ -37,7 +37,10 @@ export const JournalForm = (props) => {
 
     const getEntryInEditMode = () => {
         if (editMode) {
-            getEntry(entryId).then(setEntry);
+            getEntry(entryId).then(setEntry).then(() => {
+                entryImage = entry.photo.image
+                setEditModeImage(entryImage)
+            });
         }
     };
 
@@ -48,7 +51,7 @@ export const JournalForm = (props) => {
     const entryAddOrUpdate = (data) => {
         console.log("Someone clicked my button!", data)
         if (editMode) {
-            data.image = image
+            data.image = editModeImage
             data.id = entryId
             data.created_on = entry.created_on
             data.is_private = entry.is_private
@@ -68,26 +71,31 @@ export const JournalForm = (props) => {
         }
     }
 
-    const uploadImage = async (e) => {
+    const imageUpload = (url, data) => {
+        return fetch(url, {
+            method: 'POST',
+            body: data
+        })
+        .then(res = res.json)
+    }
+
+    const uploadImage = (e) => {
         const files = e.target.files; //get the files that have been selected by the user
         const data = new FormData(); //
         data.append("file", files[0]); //get file that has been uploaded
         data.append("upload_preset", "db_entry"); // get the preset
+        const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"
         setLoading(true); //changing value from false to true
-        const res = await fetch(
-            "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload",
-        
-            {
-                method: "POST",
-                body: data,
+        imageUpload(url, data).then(file => {
+            if(editMode){
+                setEditModeImage(file.secure_url)
             }
-        );
-        const file = await res.json();
-        console.log(file.secure_url);
-    
-        setImage(file.secure_url);
-        setLoading(false);
-        }
+            else {
+                setImage(file.secure_url)
+            }
+        }).then(() => {
+            setLoading(false)
+        })
 
 
     console.log(babies)
