@@ -114,7 +114,7 @@ export const JournalForm = (props) => {
 
                         <Form.Group controlId="form__baby">
                             <Form.Label>Child</Form.Label>
-                                {editMode && entry.is_current_user ?(
+                                {editMode && entry.by_current_user ?(
                                 <p>{entry.user_baby.baby.first_name} {entry.user_baby.baby.middle_name} {entry.user_baby.baby.last_name}</p>
                                 ) : (
                                 <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
@@ -130,7 +130,7 @@ export const JournalForm = (props) => {
                         <Form.Group>
                             <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label={fileInputLabel} onChange={uploadImage}  />
                                 {
-                                    editMode && entry.is_current_user ? (
+                                    editMode && entry.by_current_user ? (
                                         <Image src={editModeImage} fluid />
                                     ) : (
                                         <Image src={image} fluid />
@@ -142,7 +142,7 @@ export const JournalForm = (props) => {
                             <Form.Control as="textarea" rows={3} key="entryText" name="text" ref={register} defaultValue={entry.text} />
                         </Form.Group>
                             {
-                                editMode && entry.is_current_user ? (
+                                editMode && entry.by_current_user ? (
                                     <Form.Group>
                                     <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
                                     <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
