@@ -46,6 +46,15 @@ export const JournalDataProvider = (props) => {
         })
     }
 
+    const deleteEntry = id => {
+        return fetch(`http://localhost:8000/entries/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("db_token")}`,
+            },
+        })
+    }
+
         return (
             <JournalContext.Provider
                 value={{
@@ -53,7 +62,8 @@ export const JournalDataProvider = (props) => {
                     getEntry,
                     entries,
                     addJournalEntry,
-                    updateJournalEntry
+                    updateJournalEntry,
+                    deleteEntry
                 }}
                 >
                 {props.children}
