@@ -20,10 +20,11 @@ export const JournalForm = (props) => {
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
     const [loading, setLoading] = useState(false)
+    const [fileInputLabel, setFileInputLabel] = useState("Upload an image")
 
 
     //  Grab needed functions from React-Form-Hook
-    const { register, handleSubmit, errors, formState } = useForm()
+    const { register, handleSubmit, errors, formState, reset } = useForm()
 
     // Get data needed to render dropdown
     useEffect(() => {
@@ -40,6 +41,7 @@ export const JournalForm = (props) => {
             getEntry(entryId).then(setEntry).then(() => {
                 entryImage = entry.photo.image
                 setEditModeImage(entryImage)
+                setFileInputLabel("Change Image")
             });
         }
     };
@@ -85,7 +87,7 @@ export const JournalForm = (props) => {
         data.append("file", files[0]); //get file that has been uploaded
         data.append("upload_preset", "db_entry"); // get the preset
         const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"
-        setLoading(true); //changing value from false to true
+        setFileInputLabel("Loading..."); 
         imageUpload(url, data).then(file => {
             if(editMode){
                 setEditModeImage(file.secure_url)
@@ -94,7 +96,7 @@ export const JournalForm = (props) => {
                 setImage(file.secure_url)
             }
         }).then(() => {
-            setLoading(false)
+            setFileInputLabel("Change Image"); 
         })
 
 
@@ -121,22 +123,34 @@ export const JournalForm = (props) => {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label="Upload an image" onChange={uploadImage}  />
-                    {loading ? (
-                        <h3>Loading...</h3>
-                    ) : (
-                        <Image src={image} fluid />
-                    )}
+                    <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label={fileInputLabel} onChange={uploadImage}  />
+                        {
+                            editMode ? (
+                                <Image src={editModeImage} fluid />
+                            ) : (
+                                <Image src={image} fluid />
+                            )
+                        }
                 </Form.Group>
                 <Form.Group controlId="form__entry">
                     <Form.Label>What wonderful things are happening in your baby's life right now?</Form.Label>
                     <Form.Control as="textarea" rows={3} key="entryText" name="text" ref={register} defaultValue={entry.text} />
                 </Form.Group>
-                <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
+                {
+                    editMode ? (
+                        <Form.Group>
+                        <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
+                        <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
+                        </Form.Group>
+                    ):(
+                        <Form.Group>
+                        <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
+                        <Button className="btn" variant="outline-primary" type="button" onClick={reset()} >Cancel</Button>
+                        </Form.Group>
+                        )
+                    }
             </Form>
-
         </Container>
     )
-
-
+}
 }
