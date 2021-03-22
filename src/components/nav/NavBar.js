@@ -4,6 +4,7 @@ import { Logout } from "../auth/Logout"
 // React-Bootstrap Component imports
 import Navbar from "react-bootstrap/Navbar"
 import Nav from "react-bootstrap/Nav"
+import { AddEntryButton } from "../Journal/AddEntryButton"
 
 
 export const NavBar = (props) => {
@@ -18,6 +19,7 @@ export const NavBar = (props) => {
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Journals</Nav.Link>
                     <Nav.Link href="/profile">Profile</Nav.Link>
+                    <Route render={props => <AddEntryButton {...props} />} />
                     <Route render={props => <Logout {...props} />} />
                 </Nav>
             </Navbar.Collapse>
