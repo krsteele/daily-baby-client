@@ -29,9 +29,16 @@ export const JournalList = (props) => {
 
                 {
                     entries.map(entry => {
-                        return  <Col key={entry.id}>
+                        return  <Col key={entry.id+"entry"}>
                                     <Card >
-                                        <Card.Img variant="top" src={entry.photo.image} />
+                                        {
+                                            entry.photo === null ? (
+                                                ""
+                                            ):(
+
+                                                <Card.Img variant="top" src={entry.photo.image} />
+                                            )
+                                        }
                                         <Card.Body>{entry.text}
                                         <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/journal/edit/${entry.id}`)} />
                                         </Card.Body>
