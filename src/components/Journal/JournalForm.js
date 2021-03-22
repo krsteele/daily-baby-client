@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
+import Image from 'react-bootstrap/Image'
 
 export const JournalForm = (props) => {
     const { getEntry, addJournalEntry, updateJournalEntry } = useContext(JournalContext)
@@ -55,10 +56,10 @@ export const JournalForm = (props) => {
             data.prompt = entry.prompt
             data.userBaby = entry.user_baby.id
             updateJournalEntry(data)
-                .then(() => props.history.push(`/journal/${data.babyId}`))
+                .then(() => props.history.push(`/journal/${entry.user_baby.baby.id}`))
         } else {
             addJournalEntry({
-                text: data.entryText,
+                text: data.text,
                 babyId: data.babyId,
                 image: image,
                 is_private: false,
@@ -97,8 +98,8 @@ export const JournalForm = (props) => {
             <Form onSubmit={handleSubmit(entryAddOrUpdate)}>
                 <Form.Group controlId="form__baby">
                     <Form.Label>Child</Form.Label>
-                    <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select" defaultValue={entry.user_baby.baby.nickname}>
-                    <option key="key" value="null">Who is your entry about?</option>
+                    <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select" value={entry.user_baby.baby.nickname}>
+                    <option key="0" value="null">Who is your entry about?</option>
                     {
                         babies.map(baby => (
                             <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
@@ -107,16 +108,16 @@ export const JournalForm = (props) => {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group>
-                    <Form.File ref={register} name="entryImage" id="entryImage" label="Upload an image" onChange={uploadImage} defaultValue={entry.photo.image} />
+                    <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label="Upload an image" onChange={uploadImage}  />
                     {loading ? (
                         <h3>Loading...</h3>
                     ) : (
-                        <img src={image} style={{ width: "300px" }} />
+                        <Image src={image} fluid />
                     )}
                 </Form.Group>
                 <Form.Group controlId="form__entry">
                     <Form.Label>What wonderful things are happening in your baby's life right now?</Form.Label>
-                    <Form.Control as="textarea" rows={3} name="entryText" ref={register} defaultValue={entry.text} />
+                    <Form.Control as="textarea" rows={3} key="entryText" name="text" ref={register} defaultValue={entry.text} />
                 </Form.Group>
                 <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
             </Form>
