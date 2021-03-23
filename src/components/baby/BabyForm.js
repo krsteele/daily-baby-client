@@ -36,9 +36,9 @@ export const BabyForm = (props) => {
     const getBabyInEditMode = () => {
         if (editMode) {
             getBaby(babyId).then(setBaby).then(() => {
-                const babyImage = baby.photo.image
-                setEditModeImage(babyImage)
-                setFileInputLabel("Change Image")
+                const babyProfileImage = baby.profile_image
+                setEditModeImage(babyProfileImage)
+                setFileInputLabel("Update profile pic")
             })
         } 
     }
