@@ -50,7 +50,8 @@ export const BabyForm = (props) => {
     const getBabyInEditMode = () => {
         if (editMode) {
             getBaby(babyId).then(setBaby).then(() => {
-                const babyProfileImage = baby.profile_image
+                const babyProfileImage = baby.baby.profile_image
+                console.log(babyProfileImage)
                 setEditModeImage(babyProfileImage)
                 setFileInputLabel("Update profile pic")
             })
@@ -208,9 +209,20 @@ export const BabyForm = (props) => {
                                 label={fileInputLabel} 
                                 onChange={uploadImage}  />
                         </Form.Group>
-                        {/* needs image uploader for profile image */}
-                        {/* needs buttons for create and edit modes */}
-                        {/* needs means of arriving here via profile and via baby cards */}
+
+                        {
+                        editMode && parent ? (
+                            <Form.Group>
+                            <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
+                            <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push("/profile")} >Cancel</Button>
+                            </Form.Group>
+                        ):(
+                            <Form.Group>
+                            <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
+                            <Button className="btn" variant="outline-primary" type="button" onClick={() => reset()} >Cancel</Button>
+                            </Form.Group>
+                            )
+                        }                       
 
                     </Form>
                 </Container>
