@@ -107,8 +107,15 @@ export const ProfileForm = (props) => {
                     style={{borderColor: errors.email && "red"}} />
             </Form.Group>
 
-            {/* profile image uploader */}
-
+            <Form.Group>
+                <Form.File 
+                    ref={register} 
+                    name="profileImage" 
+                    key="profileImage" 
+                    id="profileImage" 
+                    label={fileInputLabel} 
+                    onChange={uploadImage}  />
+            </Form.Group>
             {/* texting preferences */}
 
             {/* phone number */}
