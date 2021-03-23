@@ -16,12 +16,18 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 export const ProfileForm = (props) => {
-    const { getProfile, updateProfile,  } = useContext(ProfileContext)
+    // requests for profile GET and PUT
+    const { getProfile, updateProfile } = useContext(ProfileContext)
+    // profile state
     const [profile, setProfile] = useState({dailyuser:{user:{}}, dailyuser_days: [], userbabies: []})
-
+    // profile image state
     const [image, setImage] = useState("")
-    const [editModeImage, setEditModeImage] = useState("")
+    // profile image file input message state
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
+    // phone number state
+    const [phone, setPhone] = useState(null)
+
+
 
     //  Grab needed functions from React-Form-Hook
     const { register, handleSubmit, errors, formState, reset } = useForm()
@@ -34,13 +40,18 @@ export const ProfileForm = (props) => {
             })
     }, [])
     
-    //  Conditionally set profile image state
     useEffect(() => {
-        console.log(profile.dailyuser.profile_image)
+        //  Conditionally set state for profile image
         if (profile.dailyuser.profile_image) {
             setImage(profile.dailyuser.profile_image)
         } else {
             setImage("https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png")
+        }
+        //  Conditionally set state for phone 
+        if (profile.dailyuser.phone_number) {
+            setPhone(profile.dailyuser.phone_number)
+        } else {
+            setPhone("")
         }
     }, [profile])
 
@@ -51,7 +62,7 @@ export const ProfileForm = (props) => {
         console.log("Here's the data that will be sent", data)
     }
 
-    // image upload
+    // request to cloudinary api
     const imageUpload = (url, data) => {
         return fetch(url, {
             method: 'POST',
@@ -61,17 +72,19 @@ export const ProfileForm = (props) => {
     }
 
     const uploadImage = (e) => {
-        const files = e.target.files; //get the files that have been selected by the user
-        const data = new FormData(); //
-        data.append("file", files[0]); //get file that has been uploaded
-        data.append("upload_preset", "db_profile"); // get the preset
-        const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"
-        setFileInputLabel("Loading..."); 
+        const files = e.target.files; // get the files that have been selected by the user
+        const data = new FormData(); // instantiate a data object?
+        data.append("file", files[0]); //get file that has been uploaded and append it to the data object
+        data.append("upload_preset", "db_profile"); // add the name of the cloudinary preset to the data object
+        const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"; // cloudinary url for fetch call assigned to variable
+        setFileInputLabel("Loading..."); // set the state of file input field message
+        // call the image upload function and pass the fetch url and the data object as arguments
         imageUpload(url, data).then(file => {
+            // set image state with returned url
                 setImage(file.secure_url)
             }
         ).then(() => {
-            setFileInputLabel("Change profile pic"); 
+            setFileInputLabel("Change profile pic"); // set state of file input field message
         })
     }
 
@@ -127,9 +140,8 @@ export const ProfileForm = (props) => {
             <PhoneInput
                 country={'us'}
                 autoFormat={true}
-                value={this.state.phone}
-                defaultValue={profile.dailyuser.phone_number}            
-                onChange={phone => this.setState({ phone })}
+                value={phone}
+                onChange={phone => setPhone(phone)}
             />
             {/* text time */}
 
