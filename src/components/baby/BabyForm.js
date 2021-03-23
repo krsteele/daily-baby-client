@@ -17,7 +17,7 @@ export const BabyForm = (props) => {
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
-
+    const [parent, setParent] = useState(null)
 
     //  Grab needed functions from React-Form-Hook
     const { register, handleSubmit, errors, formState, reset } = useForm()
@@ -27,6 +27,15 @@ export const BabyForm = (props) => {
         getRelationships()
         getBabyInEditMode()
     }, [])
+
+    useEffect(() => {
+        relationship = baby.relationship.type
+        relationship === "Mother" || relationship === "Father" ? (
+            setParent(true)
+        ):(
+            setParent(false)
+        )
+    }, [baby])
 
     // Check for edit mode
     // If edit mode, get and set baby to be updated
@@ -102,6 +111,23 @@ export const BabyForm = (props) => {
             }
 
             <Form onSubmit={handleSubmit(babyCreateUpdate)}>
+
+                <Form.Group controlId="form__baby">
+                    <Form.Label>What is your relationship to this child?</Form.Label>
+
+                        {editMode && entry.by_current_user ? (
+                        <p>{entry.user_baby.baby.first_name} {entry.user_baby.baby.middle_name} {entry.user_baby.baby.last_name}</p>
+                        ) : (
+                        <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
+                        <option key="0">Who is your entry about?</option>
+                        
+                            {babies.map(baby => {
+                                return <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
+                            })}
+                        </Form.Control>
+                        )}
+                </Form.Group>
+            </Form>
         </Container>
     )
 }
