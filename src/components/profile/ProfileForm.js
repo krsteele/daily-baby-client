@@ -29,15 +29,15 @@ export const ProfileForm = (props) => {
                 setProfile(returnedProfile)
             })
     }, [])
-
+    
+    //  Conditionally set profile image state
     useEffect(() => {
-        
+        if (profile.profile_image) {
+            setImage(profile.profile_image)
+        } else {
+            setImage(https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png)
+        }
     }, [profile])
-
-    // Watch for profile state change
-    // Check to see if profile image exists
-    // if not, set image default? to image
-    // if yes, set image to image and set file input label to update profile pic
 
 
     // function to build the update data and call update function, then push to /profile
