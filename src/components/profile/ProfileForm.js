@@ -11,6 +11,10 @@ import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
 
+// Phone Input
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 export const ProfileForm = (props) => {
     const { getProfile, updateProfile,  } = useContext(ProfileContext)
     const [profile, setProfile] = useState({dailyuser:{user:{}}, dailyuser_days: [], userbabies: []})
@@ -120,7 +124,13 @@ export const ProfileForm = (props) => {
             <h3>Text Reminder Preferences</h3>
 
             {/* phone number */}
-
+            <PhoneInput
+                country={'us'}
+                autoFormat={true}
+                value={this.state.phone}
+                defaultValue={profile.dailyuser.phone_number}            
+                onChange={phone => this.setState({ phone })}
+            />
             {/* text time */}
 
             {/* days of week to be texted */}
