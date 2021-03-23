@@ -63,6 +63,33 @@ export const BabyForm = (props) => {
         }
     }
 
+    const imageUpload = (url, data) => {
+        return fetch(url, {
+            method: 'POST',
+            body: data
+        })
+        .then(res => res.json())
+    }
+
+    const uploadImage = (e) => {
+        const files = e.target.files; //get the files that have been selected by the user
+        const data = new FormData(); //
+        data.append("file", files[0]); //get file that has been uploaded
+        data.append("upload_preset", "db_profile"); // get the preset
+        const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"
+        setFileInputLabel("Loading..."); 
+        imageUpload(url, data).then(file => {
+            if(editMode){
+                setEditModeImage(file.secure_url)
+            }
+            else {
+                setImage(file.secure_url)
+            }
+        }).then(() => {
+            setFileInputLabel("Change Image"); 
+        })
+    }
+
     return (
         <Container>
             I'm the baby form!
