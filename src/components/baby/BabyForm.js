@@ -140,7 +140,22 @@ export const BabyForm = (props) => {
 
                         <Form.Group controlId="form__firstName">
                             <Form.Label>Child's First Name</Form.Label>
-                            <Form.Control ref={register({required: true})} name="firstName" type="text" style={{borderColor: errors.firstName && "red"}} />
+                            <Form.Control ref={register({required: true})} name="firstName" type="text" defaultValue={baby.baby.first_name} style={{borderColor: errors.firstName && "red"}} />
+                        </Form.Group>
+                        
+                        <Form.Group controlId="form__middleName">
+                            <Form.Label>Child's Middle Name</Form.Label>
+                            <Form.Control ref={register} name="middleName" type="text" defaultValue={baby.baby.middle_name}  />
+                        </Form.Group>
+                        
+                        <Form.Group controlId="form__lastName">
+                            <Form.Label>Child's Last Name</Form.Label>
+                            <Form.Control ref={register({required: true})} name="lastName" type="text" defaultValue={baby.baby.last_name} style={{borderColor: errors.lastName && "red"}} />
+                        </Form.Group>
+                        
+                        <Form.Group controlId="form__nickname">
+                            <Form.Label>Child's Nickname</Form.Label>
+                            <Form.Control ref={register} name="nickname" type="text" defaultValue={baby.baby.nickname} />
                         </Form.Group>
 
                     </Form>
