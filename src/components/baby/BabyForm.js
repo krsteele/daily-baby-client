@@ -42,6 +42,26 @@ export const BabyForm = (props) => {
             })
         } 
     }
+    // update or create baby
+    const BabyCreateUpdate = (data) => {
+        if (editMode) {
+            data.profileImage = editModeImage
+            data.id = babyId
+            updateBaby(data)
+                .then(() => props.history.push("/profile"))
+        } else {
+            createBaby({
+                firstName: data.firstName,
+                middleName: data.middleName,
+                lastName: data.lastName,
+                nickname: data.nickname,
+                birthdate: data.birthdate,
+                relationship: data.relationship,
+                profileImage: image
+            })
+            .then(() => props.history.push("/profile"))
+        }
+    }
 
     return (
         <Container>
