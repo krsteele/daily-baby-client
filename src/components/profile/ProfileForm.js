@@ -40,8 +40,11 @@ export const ProfileForm = (props) => {
     }, [profile])
 
 
-    // function to build the update data and call update function, then push to /profile
-
+    // How will I handle days of the week?
+    const profileUpdate = (data) => {
+        data.profileImage = image
+        console.log("Here's the data that will be sent", data)
+    }
 
     // image upload code
 
