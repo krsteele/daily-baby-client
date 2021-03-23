@@ -6,6 +6,7 @@ import { BabyDataProvider } from "./baby/BabyDataProvider"
 import { JournalDataProvider } from "./Journal/JournalDataProvider"
 import { JournalList } from "./Journal/JournalList"
 import { JournalForm } from "./Journal/JournalForm"
+import { BabyForm } from "./baby/BabyForm"
 
 
 export const ApplicationViews = () => {
@@ -16,20 +17,29 @@ export const ApplicationViews = () => {
                     props => <ProfileDetail {...props} />
                 } />
             </ProfileDataProvider>
+
             <JournalDataProvider>
                 <BabyDataProvider>
                     <Route path="/journal/:babyId(\d+)" render={
                         props => <JournalList {...props} />
                     } />
                     <Route exact path="/journal/create" render={
-                            props => <JournalForm {...props} />
-                        } />
+                        props => <JournalForm {...props} />
+                    } />
                     <Route path="/journal/edit/:entryId(\d+)" render={
                         props => <JournalForm {...props} />
                     } />
                 </BabyDataProvider>
             </JournalDataProvider>
-                
+
+            <BabyDataProvider>
+                <Route exact path="/children/create" render={
+                    props => <BabyForm {...props} />
+                } />
+                <Route path="/children/edit/:babyId(\d+)" render={
+                    props => <BabyForm {...props} />
+                } />
+            </BabyDataProvider>
         </>
     )
 }

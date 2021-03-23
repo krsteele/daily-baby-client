@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useContext } from "react"
+import { Route } from "react-router-dom"
+
 
 import { ProfileContext } from "./ProfileDataProvider"
+import { AddChildButton } from "../baby/AddChildButton"
+
 
 // react-bootstrap components
 import Container from 'react-bootstrap/Container'
@@ -24,7 +28,6 @@ export const ProfileDetail = (props) => {
                 setProfile(returnedProfile)
             })
     }, [])
-
     
 
     return(
@@ -48,6 +51,7 @@ export const ProfileDetail = (props) => {
             </div>
             <div className="profile__children">
                 <h3>Children</h3>
+                <Route render={props => <AddChildButton {...props} />} />
                 {
                     profile.userbabies > 0 
                     ?
@@ -64,7 +68,7 @@ export const ProfileDetail = (props) => {
                                 </Card.Body>
                                 <Card.Body>
                                     <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
-                                    <FontAwesomeIcon icon={faEdit} onClick={() => console.log("Don't click the baby!")} />
+                                    <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
                                     <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
                                 </Card.Body>
                             </Card>
