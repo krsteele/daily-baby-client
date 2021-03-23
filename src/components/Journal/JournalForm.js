@@ -113,9 +113,9 @@ export const JournalForm = (props) => {
                     <Form onSubmit={handleSubmit(entryAddOrUpdate)}>
 
                         <Form.Group controlId="form__baby">
-                            <Form.Label>Child</Form.Label>
+                            <Form.Label>Child's Name</Form.Label>
                                 {editMode && entry.by_current_user ?(
-                                <p>{entry.user_baby.baby.first_name} {entry.user_baby.baby.middle_name} {entry.user_baby.baby.last_name}</p>
+                                <Form.Control plaintext readOnly defaultValue={entry.user_baby.baby.first_name} />
                                 ) : (
                                 <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
                                 <option key="0">Who is your entry about?</option>
