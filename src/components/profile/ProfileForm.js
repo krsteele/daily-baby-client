@@ -35,7 +35,7 @@ export const ProfileForm = (props) => {
         if (profile.profile_image) {
             setImage(profile.profile_image)
         } else {
-            setImage(https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png)
+            setImage("https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png")
         }
     }, [profile])
 
@@ -46,7 +46,30 @@ export const ProfileForm = (props) => {
         console.log("Here's the data that will be sent", data)
     }
 
-    // image upload code
+    // image upload
+    const imageUpload = (url, data) => {
+        return fetch(url, {
+            method: 'POST',
+            body: data
+        })
+        .then(res => res.json())
+    }
+
+    const uploadImage = (e) => {
+        const files = e.target.files; //get the files that have been selected by the user
+        const data = new FormData(); //
+        data.append("file", files[0]); //get file that has been uploaded
+        data.append("upload_preset", "db_profile"); // get the preset
+        const url = "https://api.cloudinary.com/v1_1/fluffydaydream/image/upload"
+        setFileInputLabel("Loading..."); 
+        imageUpload(url, data).then(file => {
+                setImage(file.secure_url)
+            }
+        ).then(() => {
+            setFileInputLabel("Change profile pic"); 
+        })
+    }
+
 
     return (
         <Container>
