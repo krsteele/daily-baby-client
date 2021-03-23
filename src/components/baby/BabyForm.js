@@ -9,11 +9,12 @@ import { useForm } from "react-hook-form"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
+import Alert from "react-bootstrap/Alert"
 
 export const BabyForm = (props) => {
     const { getBaby, createBaby, updateBaby, getRelationships, relationships } = useContext(BabyContext)
     
-    const [baby, setBaby] = useState({})
+    const [baby, setBaby] = useState({baby: {}, relationship: {}})
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
@@ -29,7 +30,7 @@ export const BabyForm = (props) => {
     }, [])
 
     useEffect(() => {
-        relationship = baby.relationship.type
+        const relationship = baby.relationship.type
         relationship === "Mother" || relationship === "Father" ? (
             setParent(true)
         ):(
@@ -39,7 +40,7 @@ export const BabyForm = (props) => {
 
     // Check for edit mode
     // If edit mode, get and set baby to be updated
-    const editMode = props.match.params.hasOwnProperty("entryId")
+    const editMode = props.match.params.hasOwnProperty("babyId")
     const babyId = props.match.params.babyId
 
     const getBabyInEditMode = () => {
@@ -52,7 +53,7 @@ export const BabyForm = (props) => {
         } 
     }
     // update or create baby
-    const BabyCreateUpdate = (data) => {
+    const babyCreateUpdate = (data) => {
         if (editMode) {
             data.profileImage = editModeImage
             data.id = babyId
@@ -100,34 +101,51 @@ export const BabyForm = (props) => {
     }
 
     return (
-        <Container>
+        <>
             {
-                editMode ? (
-                    <h2>Edit Child's Profile</h2>
+                editMode && !parent ? (
+                    <Alert key="warning" variant="warning">
+                        You are not authorized to make changes to this child's profile.
+                    </Alert>
                 ):(
+                    ""
+                )}
 
-                    <h2>Add Child's Information</h2>
-                )
-            }
+                <Container>
+                    {
+                        editMode && parent ? (
+                            <h2>Edit Child's Profile</h2>
+                            ):(
+                            <h2>Add Child's Information</h2>
+                            )
+                    }
 
-            <Form onSubmit={handleSubmit(babyCreateUpdate)}>
+                    <Form onSubmit={handleSubmit(babyCreateUpdate)}>
 
-                <Form.Group controlId="form__baby">
-                    <Form.Label>What is your relationship to this child?</Form.Label>
+                        {editMode && parent ? (
+                            ""
+                        ):(
+                            <Form.Group controlId="form__relationship">
+                                <Form.Label>What is your relationship to this child?</Form.Label>
+                                    
+                                    <Form.Control ref={register({valueAsNumber: true})} name="relationship" as="select">
+                                        <option key="0">Choose relationship type</option>
+                                    
+                                        {relationships.map(rel => {
+                                            return <option key={rel.id} value={rel.id}>{rel.type}</option>
+                                        })}
+                                    </Form.Control>
+                            </Form.Group>
+                        )}  
 
-                        {editMode && entry.by_current_user ? (
-                        <p>{entry.user_baby.baby.first_name} {entry.user_baby.baby.middle_name} {entry.user_baby.baby.last_name}</p>
-                        ) : (
-                        <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
-                        <option key="0">Who is your entry about?</option>
-                        
-                            {babies.map(baby => {
-                                return <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
-                            })}
-                        </Form.Control>
-                        )}
-                </Form.Group>
-            </Form>
-        </Container>
+                        <Form.Group controlId="form__firstName">
+                            <Form.Label>Child's First Name</Form.Label>
+                            <Form.Control ref={register({required: true})} name="firstName" type="text" style={{borderColor: errors.firstName && "red"}} />
+                        </Form.Group>
+
+                    </Form>
+                </Container>
+                
+        </>
     )
 }
