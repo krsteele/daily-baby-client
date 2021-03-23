@@ -116,7 +116,8 @@ export const ProfileForm = (props) => {
                     label={fileInputLabel} 
                     onChange={uploadImage}  />
             </Form.Group>
-            {/* texting preferences */}
+
+            <h3>Text Reminder Preferences</h3>
 
             {/* phone number */}
 
