@@ -16,7 +16,7 @@ export const BabyForm = (props) => {
     const [baby, setBaby] = useState({})
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
-    const [fileInputLabel, setFileInputLabel] = useState("Upload an image")
+    const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
 
 
     //  Grab needed functions from React-Form-Hook
@@ -86,13 +86,20 @@ export const BabyForm = (props) => {
                 setImage(file.secure_url)
             }
         }).then(() => {
-            setFileInputLabel("Change Image"); 
+            setFileInputLabel("Change profile pic"); 
         })
     }
 
     return (
         <Container>
-            I'm the baby form!
+            {
+                editMode ? (
+                    <h2>Edit Child's Profile</h2>
+                ):(
+
+                    <h2>Add Child's Information</h2>
+                )
+            }
         </Container>
     )
 }
