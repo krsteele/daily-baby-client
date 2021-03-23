@@ -10,6 +10,8 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
+import Image from "react-bootstrap/Image"
+
 
 
 export const BabyForm = (props) => {
@@ -121,6 +123,13 @@ export const BabyForm = (props) => {
                             <h2>Add Child's Information</h2>
                             )
                     }
+                    {
+                        editMode ? (
+                            <Image src={editModeImage} fluid />
+                        ) : (
+                            <Image src={image} fluid />
+                        )
+                    }
 
                     <Form onSubmit={handleSubmit(babyCreateUpdate)}>
 
@@ -188,6 +197,16 @@ export const BabyForm = (props) => {
                                 error={errors.birthdate} 
                                 default value={baby.baby.birth_date} 
                                 />
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.File 
+                                ref={register} 
+                                name="profileImage" 
+                                key="profileImage" 
+                                id="profileImage" 
+                                label={fileInputLabel} 
+                                onChange={uploadImage}  />
                         </Form.Group>
                         {/* needs image uploader for profile image */}
                         {/* needs buttons for create and edit modes */}
