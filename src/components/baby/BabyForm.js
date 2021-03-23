@@ -100,6 +100,8 @@ export const BabyForm = (props) => {
                     <h2>Add Child's Information</h2>
                 )
             }
+
+            <Form onSubmit={handleSubmit(babyCreateUpdate)}>
         </Container>
     )
 }
