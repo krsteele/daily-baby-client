@@ -4,7 +4,7 @@ export const BabyContext = React.createContext()
 
 export const BabyDataProvider = (props) => {
 
-    const [babies, setBabies] = useState([])
+    const [babies, setBabies] = useState([{baby: {}, relationship: {}}])
     const [relationships, setRelationships] = useState([])
 
     const getBabies = () => {
