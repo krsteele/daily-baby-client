@@ -32,8 +32,9 @@ export const ProfileForm = (props) => {
     
     //  Conditionally set profile image state
     useEffect(() => {
-        if (profile.profile_image) {
-            setImage(profile.profile_image)
+        console.log(profile.dailyuser.profile_image)
+        if (profile.dailyuser.profile_image) {
+            setImage(profile.dailyuser.profile_image)
         } else {
             setImage("https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png")
         }
@@ -73,17 +74,38 @@ export const ProfileForm = (props) => {
 
     return (
         <Container>
-            <div>Hey, I'm the Profile Edit form! Yay!</div>
+            <h2>Edit Profile and Preferences</h2>
 
-            {/* form header */}
+            <Image src={image} />
 
-            {/* profile image display */}
+            <Form.Group controlId="form__firstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control 
+                    ref={register({required: true})} 
+                    name="firstName" type="text" 
+                    defaultValue={profile.dailyuser.user.first_name} 
+                    style={{borderColor: errors.firstName && "red"}} />
+            </Form.Group>
 
-            {/* first name field */}
+            <Form.Group controlId="form__lastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control 
+                    ref={register({required: true})} 
+                    name="lastName" 
+                    type="text" 
+                    defaultValue={profile.dailyuser.user.last_name} 
+                    style={{borderColor: errors.lastName && "red"}} />
+            </Form.Group>
 
-            {/* last name field */}
-
-            {/* email field */}
+            <Form.Group controlId="form__email">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control 
+                    ref={register({required: true})}
+                    name="email"
+                    type="email" 
+                    defaultValue={profile.dailyuser.user.email}
+                    style={{borderColor: errors.email && "red"}} />
+            </Form.Group>
 
             {/* profile image uploader */}
 
