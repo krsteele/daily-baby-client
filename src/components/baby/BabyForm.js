@@ -157,6 +157,10 @@ export const BabyForm = (props) => {
                             <Form.Label>Child's Nickname</Form.Label>
                             <Form.Control ref={register} name="nickname" type="text" defaultValue={baby.baby.nickname} />
                         </Form.Group>
+                        {/* needs datepicker for birthdate */}
+                        {/* needs image uploader for profile image */}
+                        {/* needs buttons for create and edit modes */}
+                        {/* needs means of arriving here via profile and via baby cards */}
 
                     </Form>
                 </Container>
