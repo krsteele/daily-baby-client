@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 
+
 export const BabyForm = (props) => {
     const { getBaby, createBaby, updateBaby, getRelationships, relationships } = useContext(BabyContext)
     
@@ -19,6 +20,7 @@ export const BabyForm = (props) => {
     const [editModeImage, setEditModeImage] = useState("")
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
     const [parent, setParent] = useState(null)
+
 
     //  Grab needed functions from React-Form-Hook
     const { register, handleSubmit, errors, formState, reset } = useForm()
@@ -127,37 +129,66 @@ export const BabyForm = (props) => {
                         ):(
                             <Form.Group controlId="form__relationship">
                                 <Form.Label>What is your relationship to this child?</Form.Label>
-                                    
-                                    <Form.Control ref={register({valueAsNumber: true})} name="relationship" as="select">
+                                    <Form.Control 
+                                        ref={register({valueAsNumber: true})} 
+                                        name="relationship" 
+                                        as="select">
+                                        
                                         <option key="0">Choose relationship type</option>
-                                    
                                         {relationships.map(rel => {
                                             return <option key={rel.id} value={rel.id}>{rel.type}</option>
                                         })}
+
                                     </Form.Control>
                             </Form.Group>
                         )}  
 
                         <Form.Group controlId="form__firstName">
                             <Form.Label>Child's First Name</Form.Label>
-                            <Form.Control ref={register({required: true})} name="firstName" type="text" defaultValue={baby.baby.first_name} style={{borderColor: errors.firstName && "red"}} />
+                            <Form.Control 
+                                ref={register({required: true})} 
+                                name="firstName" type="text" 
+                                defaultValue={baby.baby.first_name} 
+                                style={{borderColor: errors.firstName && "red"}} />
                         </Form.Group>
                         
                         <Form.Group controlId="form__middleName">
                             <Form.Label>Child's Middle Name</Form.Label>
-                            <Form.Control ref={register} name="middleName" type="text" defaultValue={baby.baby.middle_name}  />
+                            <Form.Control 
+                                ref={register} 
+                                name="middleName" 
+                                type="text" 
+                                defaultValue={baby.baby.middle_name}  />
                         </Form.Group>
                         
                         <Form.Group controlId="form__lastName">
                             <Form.Label>Child's Last Name</Form.Label>
-                            <Form.Control ref={register({required: true})} name="lastName" type="text" defaultValue={baby.baby.last_name} style={{borderColor: errors.lastName && "red"}} />
+                            <Form.Control 
+                                ref={register({required: true})} 
+                                name="lastName" type="text" 
+                                defaultValue={baby.baby.last_name} 
+                                style={{borderColor: errors.lastName && "red"}} />
                         </Form.Group>
                         
                         <Form.Group controlId="form__nickname">
                             <Form.Label>Child's Nickname</Form.Label>
-                            <Form.Control ref={register} name="nickname" type="text" defaultValue={baby.baby.nickname} />
+                            <Form.Control 
+                                ref={register} 
+                                name="nickname" 
+                                type="text" 
+                                defaultValue={baby.baby.nickname} />
                         </Form.Group>
-                        {/* needs datepicker for birthdate */}
+
+                        <Form.Group controlId="form__birthdate">
+                            <Form.Label>Child's Birthdate</Form.Label>
+                            <Form.Control 
+                                ref={register} 
+                                type="date" 
+                                name='birthdate' 
+                                error={errors.birthdate} 
+                                default value={baby.baby.birth_date} 
+                                />
+                        </Form.Group>
                         {/* needs image uploader for profile image */}
                         {/* needs buttons for create and edit modes */}
                         {/* needs means of arriving here via profile and via baby cards */}
