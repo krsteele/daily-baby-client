@@ -139,9 +139,12 @@ export const ProfileForm = (props) => {
             {/* phone number */}
             <PhoneInput
                 country={'us'}
+                onlyCountries={'us'}
                 autoFormat={true}
                 value={phone}
                 onChange={phone => setPhone(phone)}
+            
+
             />
             {/* text time */}
 
