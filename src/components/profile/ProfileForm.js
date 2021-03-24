@@ -166,6 +166,10 @@ export const ProfileForm = (props) => {
                 
                 </Form.Group>
                 {/* update and cancel buttons */}
+                <Form.Group>
+                    <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
+                    <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push("/profile")} >Cancel</Button>
+                </Form.Group>
             </Form>
         </Container>
     )
