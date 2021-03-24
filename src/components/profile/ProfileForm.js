@@ -16,11 +16,10 @@ import Image from "react-bootstrap/Image"
 // import 'react-phone-input-2/lib/style.css'
 
 // Time Input
-import TimePicker from 'react-time-picker'
 
 export const ProfileForm = (props) => {
     // requests for profile GET and PUT
-    const { getProfile, updateProfile } = useContext(ProfileContext)
+    const { getProfile, updateProfile, getDaysOfWeek, daysOfWeek } = useContext(ProfileContext)
     // profile state
     const [profile, setProfile] = useState({dailyuser:{user:{}}, dailyuser_days: [], userbabies: []})
     // profile image state
@@ -38,6 +37,7 @@ export const ProfileForm = (props) => {
 
     // Retrieve profile data to be edited and set state
     useEffect(() => {
+        getDaysOfWeek()
         getProfile()
             .then((returnedProfile) => {
                 setProfile(returnedProfile)
@@ -105,54 +105,63 @@ export const ProfileForm = (props) => {
 
             <Image src={image} />
 
-            <Form.Group controlId="form__firstName">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control 
-                    ref={register({required: true})} 
-                    name="firstName" type="text" 
-                    defaultValue={profile.dailyuser.user.first_name} 
-                    style={{borderColor: errors.firstName && "red"}} />
-            </Form.Group>
+            <Form>
 
-            <Form.Group controlId="form__lastName">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control 
-                    ref={register({required: true})} 
-                    name="lastName" 
-                    type="text" 
-                    defaultValue={profile.dailyuser.user.last_name} 
-                    style={{borderColor: errors.lastName && "red"}} />
-            </Form.Group>
+                <Form.Group controlId="form__firstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control 
+                        ref={register({required: true})} 
+                        name="firstName" type="text" 
+                        defaultValue={profile.dailyuser.user.first_name} 
+                        style={{borderColor: errors.firstName && "red"}} />
+                </Form.Group>
 
-            <Form.Group controlId="form__email">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control 
-                    ref={register({required: true})}
-                    name="email"
-                    type="email" 
-                    defaultValue={profile.dailyuser.user.email}
-                    style={{borderColor: errors.email && "red"}} />
-            </Form.Group>
+                <Form.Group controlId="form__lastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control 
+                        ref={register({required: true})} 
+                        name="lastName" 
+                        type="text" 
+                        defaultValue={profile.dailyuser.user.last_name} 
+                        style={{borderColor: errors.lastName && "red"}} />
+                </Form.Group>
 
-            <Form.Group>
-                <Form.File 
-                    ref={register} 
-                    name="profileImage" 
-                    key="profileImage" 
-                    id="profileImage" 
-                    label={fileInputLabel} 
-                    onChange={uploadImage}  />
-            </Form.Group>
+                <Form.Group controlId="form__email">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control 
+                        ref={register({required: true})}
+                        name="email"
+                        type="email" 
+                        defaultValue={profile.dailyuser.user.email}
+                        style={{borderColor: errors.email && "red"}} />
+                </Form.Group>
 
-            <h3>Text Reminder Preferences</h3>
+                <Form.Group>
+                    <Form.File 
+                        ref={register} 
+                        name="profileImage" 
+                        key="profileImage" 
+                        id="profileImage" 
+                        label={fileInputLabel} 
+                        onChange={uploadImage}  />
+                </Form.Group>
 
-            {/* phone number */}
-            
-            {/* text time */}
+                <h3>Text Reminder Preferences</h3>
 
-            {/* days of week to be texted */}
-
-            {/* update and cancel buttons */}
+                {/* phone number */}
+                
+                {/* text time */}
+                
+                {/* days of week to be texted */}
+                <Form.Group>
+                {
+                    daysOfWeek.map(day => {
+                        return <Form.Check inline label={day.day} type="checkbox" key={day+day.day} 
+                    })
+                }
+                </Form.Group>
+                {/* update and cancel buttons */}
+            </Form>
         </Container>
     )
 
