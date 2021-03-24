@@ -45,7 +45,7 @@ export const ProfileDetail = (props) => {
                 <p><b>Phone number:</b> {profile.dailyuser.phone_number}</p>
                 <p><b>Reminder frequency: </b></p>
                     <ul>
-                        {profile.dailyuser_days.map(day => <li>{day.day.day}</li>)}
+                        {profile.dailyuser_days.map(day => <li key={day+day.day.id}>{day.day.day}</li>)}
                     </ul>
                 <p><b>Reminder time:</b> {profile.dailyuser.text_time === null ? "Please set your reminder time." : `${profile.dailyuser.text_time}`}</p>
             </div>
