@@ -195,7 +195,6 @@ export const BabyForm = (props) => {
                                 ref={register} 
                                 type="date" 
                                 name='birthdate' 
-                                error={errors.birthdate} 
                                 default value={baby.baby.birth_date} 
                                 />
                         </Form.Group>
