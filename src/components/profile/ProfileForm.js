@@ -12,8 +12,8 @@ import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
 
 // Phone Input
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+// import PhoneInput from 'react-phone-input-2'
+// import 'react-phone-input-2/lib/style.css'
 
 export const ProfileForm = (props) => {
     // requests for profile GET and PUT
@@ -137,15 +137,7 @@ export const ProfileForm = (props) => {
             <h3>Text Reminder Preferences</h3>
 
             {/* phone number */}
-            <PhoneInput
-                country={'us'}
-                onlyCountries={'us'}
-                autoFormat={true}
-                value={phone}
-                onChange={phone => setPhone(phone)}
             
-
-            />
             {/* text time */}
 
             {/* days of week to be texted */}
