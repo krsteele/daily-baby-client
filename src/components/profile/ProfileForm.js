@@ -151,14 +151,19 @@ export const ProfileForm = (props) => {
                 {/* phone number */}
                 
                 {/* text time */}
-                
+                <Form.Group controlId="form__textTime">
+                    <Form.Label>Time of day you would like to receive text reminders:</Form.Label>
+                    <Form.Control 
+                        ref={register} 
+                        type="time" 
+                        name='textTime' 
+                        defaultValue={time} 
+                        onChange={t => console.log(t)}
+                        />
+                </Form.Group>
                 {/* days of week to be texted */}
                 <Form.Group>
-                {
-                    daysOfWeek.map(day => {
-                        return <Form.Check inline label={day.day} type="checkbox" key={day+day.day} 
-                    })
-                }
+                
                 </Form.Group>
                 {/* update and cancel buttons */}
             </Form>
