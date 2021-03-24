@@ -15,6 +15,9 @@ import Image from "react-bootstrap/Image"
 // import PhoneInput from 'react-phone-input-2'
 // import 'react-phone-input-2/lib/style.css'
 
+// Time Input
+import TimePicker from 'react-time-picker'
+
 export const ProfileForm = (props) => {
     // requests for profile GET and PUT
     const { getProfile, updateProfile } = useContext(ProfileContext)
@@ -26,7 +29,8 @@ export const ProfileForm = (props) => {
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
     // phone number state
     const [phone, setPhone] = useState(null)
-
+    // time state
+    const [time, setTime] = useState(null)
 
 
     //  Grab needed functions from React-Form-Hook
@@ -52,6 +56,12 @@ export const ProfileForm = (props) => {
             setPhone(profile.dailyuser.phone_number)
         } else {
             setPhone("")
+        }
+        // Conditionally set state for time
+        if (profile.dailyuser.text_time) {
+            setTime(profile.dailyuser.text_time)
+        } else {
+            setTime("")
         }
     }, [profile])
 
