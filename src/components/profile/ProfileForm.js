@@ -105,7 +105,7 @@ export const ProfileForm = (props) => {
 
             <Image src={image} />
 
-            <Form>
+            <Form onSubmit={handleSubmit(profileUpdate)}>
 
                 <Form.Group controlId="form__firstName">
                     <Form.Label>First Name</Form.Label>
@@ -165,7 +165,7 @@ export const ProfileForm = (props) => {
                 <Form.Group>
                 
                 </Form.Group>
-                {/* update and cancel buttons */}
+
                 <Form.Group>
                     <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
                     <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push("/profile")} >Cancel</Button>
