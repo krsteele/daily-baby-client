@@ -7,6 +7,7 @@ import { JournalDataProvider } from "./Journal/JournalDataProvider"
 import { JournalList } from "./Journal/JournalList"
 import { JournalForm } from "./Journal/JournalForm"
 import { BabyForm } from "./baby/BabyForm"
+import { ProfileForm } from "./profile/ProfileForm"
 
 
 export const ApplicationViews = () => {
@@ -16,6 +17,9 @@ export const ApplicationViews = () => {
                 <Route exact path="/profile" render={
                     props => <ProfileDetail {...props} />
                 } />
+                <Route path="/profile/edit" render={
+                        props => <ProfileForm {...props} />
+                    } />
             </ProfileDataProvider>
 
             <JournalDataProvider>
