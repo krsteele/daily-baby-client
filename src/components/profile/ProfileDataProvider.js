@@ -13,14 +13,14 @@ export const ProfileDataProvider = (props) => {
             .then(res => res.json())
     }
 
-    const updateProfile = (profile) => {
-        return fetch(`http://localhost:8000/users/${profile.user.id}`, {
-            method: "PUT",
+    const toggleDay = (data) => {
+        return fetch("http://localhost:8000/users/", {
+            method: "PATCH",
             headers: {
                 "Authorization": `Token ${localStorage.getItem("db_token")}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(profile),
+            body: JSON.stringify(data),
             }).then(getProfile)
         }
 
@@ -28,7 +28,8 @@ export const ProfileDataProvider = (props) => {
             <ProfileContext.Provider
                 value={{
                     getProfile,
-                    updateProfile
+                    updateProfile,
+                    toggleDay
                 }}
                 >
                 {props.children}
