@@ -57,12 +57,6 @@ export const ProfileForm = (props) => {
         } else {
             setPhone("")
         }
-        // Conditionally set state for time
-        if (profile.dailyuser.text_time) {
-            setTime(profile.dailyuser.text_time)
-        } else {
-            setTime("")
-        }
     }, [profile])
 
 
@@ -157,7 +151,7 @@ export const ProfileForm = (props) => {
                         ref={register} 
                         type="time" 
                         name='textTime' 
-                        defaultValue={time} 
+                        defaultValue={profile.dailyuser.text_time} 
                         onChange={t => console.log(t)}
                         />
                 </Form.Group>
