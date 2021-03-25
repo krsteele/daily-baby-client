@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react"
 import { Route } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 
 import { ProfileContext } from "./ProfileDataProvider"
@@ -18,6 +19,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ProfileDetail = (props) => {
+    const history = useHistory()
 
     const { getProfile } = useContext(ProfileContext)
     const [profile, setProfile] = useState({dailyuser:{user:{}}, userbabies: []})
@@ -63,6 +65,8 @@ export const ProfileDetail = (props) => {
         <Container>
             <div className="profile__personal">
                 <h1>Profile</h1>
+                <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile & Preferences</Button>
+
                 <h3>Personal Information</h3>
                 <p><b>Name:</b> {profile.dailyuser.user.first_name} {profile.dailyuser.user.last_name}</p>
                 <p><b>Username:</b> {profile.dailyuser.user.username}</p>
