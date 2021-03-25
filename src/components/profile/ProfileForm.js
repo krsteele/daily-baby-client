@@ -11,17 +11,12 @@ import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
 
-// Phone Input
-// import PhoneInput from 'react-phone-input-2'
-// import 'react-phone-input-2/lib/style.css'
-
-// Time Input
 
 export const ProfileForm = (props) => {
     // requests for profile GET and PUT
-    const { getProfile, updateProfile, getDaysOfWeek, daysOfWeek } = useContext(ProfileContext)
+    const { getProfile, updateProfile } = useContext(ProfileContext)
     // profile state
-    const [profile, setProfile] = useState({dailyuser:{user:{}}, dailyuser_days: [], userbabies: []})
+    const [profile, setProfile] = useState({dailyuser:{user:{}}, userbabies: []})
     // profile image state
     const [image, setImage] = useState("")
     // profile image file input message state
@@ -35,7 +30,6 @@ export const ProfileForm = (props) => {
 
     // Retrieve profile data to be edited and set state
     useEffect(() => {
-        getDaysOfWeek()
         getProfile()
             .then((returnedProfile) => {
                 setProfile(returnedProfile)
@@ -150,7 +144,6 @@ export const ProfileForm = (props) => {
                         type="time" 
                         name='textTime' 
                         defaultValue={profile.dailyuser.text_time} 
-                        onChange={t => console.log(t)}
                         />
                 </Form.Group>
                 {/* days of week to be texted */}
