@@ -20,7 +20,7 @@ export const JournalList = (props) => {
 
     useEffect(() => {
         const baby = parseInt(props.match.params.babyId)
-        getBaby(baby).then(babyObj => setBaby(babyObj))
+        getBaby(baby).then(setBaby)
         getJournal(baby)
     }, [])
     console.log(baby)
