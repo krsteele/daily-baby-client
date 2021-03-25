@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ProfileContext } from "./ProfileDataProvider"
+import { useHistory } from "react-router-dom"
 
 // React-Hook-Form
 import { useForm } from "react-hook-form"
@@ -11,16 +12,14 @@ import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
 import InputGroup from 'react-bootstrap/InputGroup'
-
-// Validator
-// import isEmail from 'validator/lib/isEmail'
-// import isInt from 'validator/lib/isEmail'
-
+import { Row } from "react-bootstrap"
 
 
 export const ProfileForm = (props) => {
+    const history = useHistory()
+
     // requests for profile GET and PUT
-    const { getProfile, updateProfile, toggleDay } = useContext(ProfileContext)
+    const { getProfile, updateProfile } = useContext(ProfileContext)
     // profile state
     const [profile, setProfile] = useState({dailyuser:{user:{}}, userbabies: []})
     // profile image state
@@ -28,8 +27,13 @@ export const ProfileForm = (props) => {
     // profile image file input message state
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
     // state for days of the week, used to toggle checkboxes
-    // const [monday, setMonday] = useState(false)
-
+    const [monday, setMonday] = useState(false)
+    const [tuesday, setTuesday] = useState(false)
+    const [wednesday, setWednesday] = useState(false)
+    const [thursday, setThursday] = useState(false)
+    const [friday, setFriday] = useState(false)
+    const [saturday, setSaturday] = useState(false)
+    const [sunday, setSunday] = useState(false)
 
 
     //  Grab needed functions from React-Form-Hook
@@ -50,25 +54,23 @@ export const ProfileForm = (props) => {
         } else {
             setImage("https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png")
         }
-
-        // setMonday(profile.dailyuser.monday)
+        console.log("monday value", profile.dailyuser.monday)
+        // set checked status to value of days of the week
+        setMonday(profile.dailyuser.monday)
+        setTuesday(profile.dailyuser.tuesday)
+        setWednesday(profile.dailyuser.wednesday)
+        setThursday(profile.dailyuser.thursday)
+        setFriday(profile.dailyuser.friday)
+        setSaturday(profile.dailyuser.saturday)
+        setSunday(profile.dailyuser.sunday)
     }, [profile])
 
 
-    // How will I handle days of the week?
+    // Update the user instance
     const profileUpdate = (data) => {
         data.profileImage = image
-        console.log("Here's the data that will be sent", data)
-    }
-
-    // Toggle boolean value for days of the week checkboxes
-    const checkboxToggle = (evt) => {
-        if (evt.target.checked === true) {
-            // Want the key to point to evt.target.name, but can't seem to pass a variable or interpolate. what am I missing?
-            toggleDay(profile.dailyuser.id, {monday: true})
-        } else {
-            toggleDay(profile.dailyuser.id, {monday: false})
-        }
+        data.userId = profile.dailyuser.id
+        updateProfile(data).then(() => history.push("/profile"))
     }
 
     // request to cloudinary api
@@ -101,7 +103,7 @@ export const ProfileForm = (props) => {
     return (
         <Container>
             <h2>Edit Profile and Preferences</h2>
-
+            
             <Image src={image} />
 
             <Form onSubmit={handleSubmit(profileUpdate)}>
@@ -146,8 +148,10 @@ export const ProfileForm = (props) => {
                 </Form.Group>
 
                 <h3>Text Reminder Preferences</h3>
+                {
+                    
+                }
 
-                {/* phone number */}
                 <Form.Group>
                     <Form.Label>What phone number would you like to use for reminders?</Form.Label>
                     <InputGroup>
@@ -176,18 +180,79 @@ export const ProfileForm = (props) => {
                         defaultValue={profile.dailyuser.text_time} 
                         />
                 </Form.Group>
-                    <Form.Label>Which days of the week work best for you?</Form.Label>
-                {/* want checked to equal profile.dailyuser.monday, etc, but that seems to make the checkbox unchangeable, so the form is always either checked or unchecked */}
+
+                <Form.Label>Which days of the week work best for you?</Form.Label>
+                <Form.Group as={Row} xs={1}>
                     <Form.Check 
                         inline 
+                        ref={register}
                         className='custom-control custom-checkbox' 
                         key='monday' 
                         label='Monday' 
                         type="checkbox" 
                         name='monday' 
-                        onChange={evt => checkboxToggle(evt)} />
-                <Form.Group>
-
+                        checked={monday}
+                        onChange={evt => setMonday(!monday)} />
+                    <Form.Check 
+                        inline 
+                        ref={register}
+                        className='custom-control custom-checkbox' 
+                        key='tuesday' 
+                        label='Tuesday' 
+                        type="checkbox" 
+                        name='tuesday' 
+                        checked={tuesday}
+                        onChange={evt => setTuesday(!tuesday)} />
+                    <Form.Check 
+                        inline 
+                        ref={register}
+                        className='custom-control custom-checkbox' 
+                        key='wednesday' 
+                        label='Wednesday' 
+                        type="checkbox" 
+                        name='wednesday' 
+                        checked={wednesday}
+                        onChange={evt => setWednesday(!wednesday)} />
+                    <Form.Check 
+                        inline 
+                        ref={register}
+                        className='custom-control custom-checkbox' 
+                        key='thursday' 
+                        label='Thursday' 
+                        type="checkbox" 
+                        name='thursday' 
+                        checked={thursday}
+                        onChange={evt => setThursday(!thursday)} />
+                    <Form.Check 
+                        inline 
+                        ref={register}
+                        className='custom-control custom-checkbox' 
+                        key='friday' 
+                        label='Friday' 
+                        type="checkbox" 
+                        name='friday' 
+                        checked={friday}
+                        onChange={evt => setFriday(!friday)} />
+                    <Form.Check 
+                        inline 
+                        ref={register}
+                        className='custom-control custom-checkbox' 
+                        key='saturday' 
+                        label='Saturday' 
+                        type="checkbox" 
+                        name='saturday' 
+                        checked={saturday}
+                        onChange={evt => setSaturday(!saturday)} />
+                    <Form.Check 
+                        inline 
+                        ref={register}
+                        className='custom-control custom-checkbox' 
+                        key='sunday' 
+                        label='Sunday' 
+                        type="checkbox" 
+                        name='sunday' 
+                        checked={sunday}
+                        onChange={evt => setSunday(!sunday)} />
                 </Form.Group>
 
                 <Form.Group>
