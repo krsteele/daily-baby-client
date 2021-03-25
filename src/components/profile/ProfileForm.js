@@ -20,7 +20,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 
 export const ProfileForm = (props) => {
     // requests for profile GET and PUT
-    const { getProfile, updateProfile } = useContext(ProfileContext)
+    const { getProfile, updateProfile, toggleDay } = useContext(ProfileContext)
     // profile state
     const [profile, setProfile] = useState({dailyuser:{user:{}}, userbabies: []})
     // profile image state
@@ -28,7 +28,7 @@ export const ProfileForm = (props) => {
     // profile image file input message state
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
     // state for days of the week, used to toggle checkboxes
-    const [monday, setMonday] = useState(false)
+    // const [monday, setMonday] = useState(false)
 
 
 
@@ -51,7 +51,7 @@ export const ProfileForm = (props) => {
             setImage("https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png")
         }
 
-        setMonday(profile.dailyuser.monday)
+        // setMonday(profile.dailyuser.monday)
     }, [profile])
 
 
@@ -59,6 +59,16 @@ export const ProfileForm = (props) => {
     const profileUpdate = (data) => {
         data.profileImage = image
         console.log("Here's the data that will be sent", data)
+    }
+
+    // Toggle boolean value for days of the week checkboxes
+    const checkboxToggle = (evt) => {
+        if (evt.target.checked === true) {
+            // Want the key to point to evt.target.name, but can't seem to pass a variable or interpolate. what am I missing?
+            toggleDay(profile.dailyuser.id, {monday: true})
+        } else {
+            toggleDay(profile.dailyuser.id, {monday: false})
+        }
     }
 
     // request to cloudinary api
@@ -167,7 +177,7 @@ export const ProfileForm = (props) => {
                         />
                 </Form.Group>
                     <Form.Label>Which days of the week work best for you?</Form.Label>
-                {/* days of week to be texted */}
+                {/* want checked to equal profile.dailyuser.monday, etc, but that seems to make the checkbox unchangeable, so the form is always either checked or unchecked */}
                     <Form.Check 
                         inline 
                         className='custom-control custom-checkbox' 
@@ -175,8 +185,7 @@ export const ProfileForm = (props) => {
                         label='Monday' 
                         type="checkbox" 
                         name='monday' 
-                        checked={monday} 
-                        onChange={evt => evt.target.checked === true ? setMonday(false): setMonday(true)} />
+                        onChange={evt => checkboxToggle(evt)} />
                 <Form.Group>
 
                 </Form.Group>
