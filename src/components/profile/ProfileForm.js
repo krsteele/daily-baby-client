@@ -149,8 +149,14 @@ export const ProfileForm = (props) => {
 
                 <h3>Text Reminder Preferences</h3>
                 {
-                    
-                }
+                    profile.userbabies.length < 0 
+                    ? (
+                        <Alert variant="warning">Please 
+                            <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
+                    ):(
+                        ""
+                    )
+                } 
 
                 <Form.Group>
                     <Form.Label>What phone number would you like to use for reminders?</Form.Label>
@@ -170,7 +176,6 @@ export const ProfileForm = (props) => {
                     </InputGroup>
                 </Form.Group>
                 
-                {/* text time */}
                 <Form.Group controlId="form__textTime">
                     <Form.Label>Time of day you would like to receive text reminders:</Form.Label>
                     <Form.Control 
