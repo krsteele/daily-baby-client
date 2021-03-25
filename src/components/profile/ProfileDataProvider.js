@@ -3,7 +3,6 @@ import React, {useState} from "react"
 export const ProfileContext = React.createContext()
 
 export const ProfileDataProvider = (props) => {
-    const [daysOfWeek, setDays] = useState([])
 
     const getProfile = () => {
         return fetch("http://localhost:8000/profile", {
@@ -25,22 +24,11 @@ export const ProfileDataProvider = (props) => {
             }).then(getProfile)
         }
 
-        const getDaysOfWeek = () => {
-            return fetch("http://localhost:8000/days", {
-                headers: {
-                    "Authorization": `Token ${localStorage.getItem("db_token")}`,
-                },
-            })
-                .then(res => res.json())
-        }
-
         return (
             <ProfileContext.Provider
                 value={{
                     getProfile,
-                    updateProfile,
-                    getDaysOfWeek,
-                    daysOfWeek
+                    updateProfile
                 }}
                 >
                 {props.children}
