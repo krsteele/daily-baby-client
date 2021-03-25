@@ -10,6 +10,7 @@ import { AddChildButton } from "../baby/AddChildButton"
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
@@ -55,7 +56,7 @@ export const ProfileDetail = (props) => {
                 {
                     profile.userbabies > 0 
                     ?
-                    <p>Please add a child to begin your journal.</p>
+                    <Alert variant={warning}>Please add a child to begin your journal.</Alert>
                     :
                     profile.userbabies.map(baby => {
                         return (
