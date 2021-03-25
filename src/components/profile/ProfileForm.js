@@ -28,8 +28,6 @@ export const ProfileForm = (props) => {
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
     // phone number state
     const [phone, setPhone] = useState(null)
-    // time state
-    const [time, setTime] = useState(null)
 
 
     //  Grab needed functions from React-Form-Hook
