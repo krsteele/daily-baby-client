@@ -21,6 +21,7 @@ export const ProfileDetail = (props) => {
 
     const { getProfile } = useContext(ProfileContext)
     const [profile, setProfile] = useState({dailyuser:{user:{}}, userbabies: []})
+    const [selectedDays, setSelectedDays] = useState([])
 
 
     useEffect(() => {
@@ -29,8 +30,35 @@ export const ProfileDetail = (props) => {
                 setProfile(returnedProfile)
             })
     }, [])
-    
 
+    useEffect(() => {
+        let days = []
+
+        if (profile.dailyuser.monday === true){
+            days.push("Monday")
+        }
+        if (profile.dailyuser.tuesday === true){
+            days.push("Tuesday")
+        }
+        if (profile.dailyuser.wednesday === true){
+            days.push("Wednesday")
+        }
+        if (profile.dailyuser.thursday === true){
+            days.push("Thursday")
+        }
+        if (profile.dailyuser.friday === true){
+            days.push("Friday")
+        }
+        if (profile.dailyuser.saturday === true){
+            days.push("Saturday")
+        }
+        if (profile.dailyuser.sunday === true){
+            days.push("Sunday")
+        }
+
+        setSelectedDays(days)
+    }, [profile])
+    
     return(
         <Container>
             <div className="profile__personal">
@@ -42,13 +70,15 @@ export const ProfileDetail = (props) => {
             </div>
             <div className="profile__preferences">
                 <h3>Preferences</h3>
-                <p className="lead">When and where would you like to receive journal text message reminders?</p>
-                <p><b>Phone number:</b> {profile.dailyuser.phone_number}</p>
-                <p><b>Reminder frequency: </b></p>
-                    {/* <ul>
-                        {profile.dailyuser_days.map(day => <li key={day+day.day.id}>{day.day.day}</li>)}
-                    </ul> */}
-                {/* <p><b>Reminder time:</b> {profile.dailyuser.text_time === null ? "Please set your reminder time." : `${profile.dailyuser.text_time}`}</p> */}
+                <p><b>You'll receive text message reminders</b></p>
+                <p><b>At this number:</b> {profile.dailyuser.phone_number}</p>
+                <p><b>At this time:</b> {profile.dailyuser.text_time}</p>
+                <p><b>On these days: </b></p>
+                    {
+                        selectedDays.map(day => {
+                            return <p>{day}</p>
+                        })
+                    }
             </div>
             <div className="profile__children">
                 <h3>Children</h3>
@@ -56,7 +86,7 @@ export const ProfileDetail = (props) => {
                 {
                     profile.userbabies > 0 
                     ?
-                    <Alert variant={warning}>Please add a child to begin your journal.</Alert>
+                    <Alert variant="warning">Please add a child to begin your journal.</Alert>
                     :
                     profile.userbabies.map(baby => {
                         return (
