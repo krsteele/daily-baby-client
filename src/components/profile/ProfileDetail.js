@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const ProfileDetail = (props) => {
 
     const { getProfile } = useContext(ProfileContext)
-    const [profile, setProfile] = useState({dailyuser:{user:{}}, dailyuser_days: [], userbabies: []})
+    const [profile, setProfile] = useState({dailyuser:{user:{}}, userbabies: []})
 
 
     useEffect(() => {
@@ -44,10 +44,10 @@ export const ProfileDetail = (props) => {
                 <p className="lead">When and where would you like to receive journal text message reminders?</p>
                 <p><b>Phone number:</b> {profile.dailyuser.phone_number}</p>
                 <p><b>Reminder frequency: </b></p>
-                    <ul>
+                    {/* <ul>
                         {profile.dailyuser_days.map(day => <li key={day+day.day.id}>{day.day.day}</li>)}
-                    </ul>
-                <p><b>Reminder time:</b> {profile.dailyuser.text_time === null ? "Please set your reminder time." : `${profile.dailyuser.text_time}`}</p>
+                    </ul> */}
+                {/* <p><b>Reminder time:</b> {profile.dailyuser.text_time === null ? "Please set your reminder time." : `${profile.dailyuser.text_time}`}</p> */}
             </div>
             <div className="profile__children">
                 <h3>Children</h3>
