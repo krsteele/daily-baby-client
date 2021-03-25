@@ -65,9 +65,9 @@ export const ProfileDetail = (props) => {
     return(
         <Container>
             <div className="profile__personal">
+                <Image src={profile.dailyuser.profile_image} />
                 <h1>Profile</h1>
                 <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile & Preferences</Button>
-                <Image src={profile.dailyuser.profile_image} />
                 <h3>Personal Information</h3>
                 <p><b>Name:</b> {profile.dailyuser.user.first_name} {profile.dailyuser.user.last_name}</p>
                 <p><b>Username:</b> {profile.dailyuser.user.username}</p>
