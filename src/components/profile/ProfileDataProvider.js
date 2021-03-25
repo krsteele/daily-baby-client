@@ -14,7 +14,7 @@ export const ProfileDataProvider = (props) => {
     }
 
     const updateProfile = (profile) => {
-        return fetch(`http://localhost:8000/users/${profile.user.id}`, {
+        return fetch(`http://localhost:8000/users/${profile.userId}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Token ${localStorage.getItem("db_token")}`,
