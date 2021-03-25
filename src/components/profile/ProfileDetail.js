@@ -91,7 +91,7 @@ export const ProfileDetail = (props) => {
                 <h3>Children</h3>
                 <Route render={props => <AddChildButton {...props} />} />
                 {
-                    profile.userbabies > 0 
+                    profile.userbabies.length < 0 
                     ?
                     <Alert variant="warning">Please add a child to begin your journal.</Alert>
                     :
