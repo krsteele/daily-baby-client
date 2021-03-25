@@ -93,7 +93,8 @@ export const ProfileDetail = (props) => {
                 {
                     profile.userbabies.length < 0 
                     ?
-                    <Alert variant="warning">Please add a child to begin your journal.</Alert>
+                    <Alert variant="warning">Please 
+                            <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
                     :
                     profile.userbabies.map(baby => {
                         return (
