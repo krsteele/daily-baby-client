@@ -13,6 +13,8 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Image from 'react-bootstrap/Image'
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
@@ -65,7 +67,7 @@ export const ProfileDetail = (props) => {
     return(
         <Container>
             <div className="profile__personal">
-                <Image src={profile.dailyuser.profile_image} />
+                <Image src={profile.dailyuser.profile_image} roundedCircle />
                 <h1>Profile</h1>
                 <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile & Preferences</Button>
                 <h3>Personal Information</h3>
@@ -95,17 +97,28 @@ export const ProfileDetail = (props) => {
                     :
                     profile.userbabies.map(baby => {
                         return (
-                            <Card border="primary" style={{ width: '18rem' }} key={baby.baby.id}>
+                            <Card border="primary" className="text-center" style={{ width: '18rem' }} key={baby.baby.id}>
                                 <Card.Header>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</Card.Header>
+                                <Card.Body>
+                                    <Image src={baby.baby.profile_image} roundedCircle />
+                                </Card.Body>
                                 <Card.Body>
                                 <Card.Text>
                                     Born {baby.baby.birth_date}
                                 </Card.Text>
                                 </Card.Body>
-                                <Card.Body>
-                                    <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
-                                    <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
-                                    <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
+                                <Card.Body> 
+                                    <Row>
+                                        <Col>
+                                            <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
+                                        </Col>
+                                        <Col>
+                                            <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
+                                        </Col>
+                                        <Col>
+                                            <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
+                                        </Col>
+                                    </Row>
                                 </Card.Body>
                             </Card>
                         )

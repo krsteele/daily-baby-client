@@ -23,10 +23,10 @@ export const JournalList = (props) => {
         getBaby(baby).then(babyObj => setBaby(babyObj))
         getJournal(baby)
     }, [])
-    console.log(entries)
+    console.log(baby)
     return(
         <Container>
-            <h1>{baby.first_name}'s Journal</h1>
+            <h1>{baby.baby.first_name}'s Journal</h1>
             <Row xs={1} sm={2} md={3} lg={4} xl={5}>
 
                 {
@@ -45,10 +45,14 @@ export const JournalList = (props) => {
                                             {
                                                 entry.by_current_user ? (
                                                     <ListGroup className="list-group-flush">
-                                                        <ListGroup.Item>
-                                                            <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/journal/edit/${entry.id}`)} />
-                                                            <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.id).then(() => props.history.push(`/journal/${baby.id}`)))} />
-                                                        </ListGroup.Item>
+                                                        <Row className="text-center">
+                                                            <Col>
+                                                                <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/journal/edit/${entry.id}`)} />
+                                                            </Col>
+                                                            <Col>
+                                                                <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.id).then(() => props.history.push(`/journal/${baby.id}`)))} />
+                                                            </Col>
+                                                        </Row>
                                                     </ListGroup>
                                                 ):(
                                                     ""
