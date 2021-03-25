@@ -12,6 +12,7 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import Image from 'react-bootstrap/Image'
 
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
@@ -66,7 +67,7 @@ export const ProfileDetail = (props) => {
             <div className="profile__personal">
                 <h1>Profile</h1>
                 <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile & Preferences</Button>
-
+                <Image src={profile.dailyuser.profile_image} />
                 <h3>Personal Information</h3>
                 <p><b>Name:</b> {profile.dailyuser.user.first_name} {profile.dailyuser.user.last_name}</p>
                 <p><b>Username:</b> {profile.dailyuser.user.username}</p>
