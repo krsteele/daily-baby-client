@@ -10,6 +10,12 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
+import InputGroup from 'react-bootstrap/InputGroup'
+
+// Validator
+// import isEmail from 'validator/lib/isEmail'
+// import isInt from 'validator/lib/isEmail'
+
 
 
 export const ProfileForm = (props) => {
@@ -21,8 +27,9 @@ export const ProfileForm = (props) => {
     const [image, setImage] = useState("")
     // profile image file input message state
     const [fileInputLabel, setFileInputLabel] = useState("Upload a profile image")
-    // phone number state
-    const [phone, setPhone] = useState(null)
+    // state for days of the week, used to toggle checkboxes
+    const [monday, setMonday] = useState(false)
+
 
 
     //  Grab needed functions from React-Form-Hook
@@ -43,12 +50,8 @@ export const ProfileForm = (props) => {
         } else {
             setImage("https://res.cloudinary.com/fluffydaydream/image/upload/v1615834269/blank-profile-picture-973460_640_rtmmdv.png")
         }
-        //  Conditionally set state for phone 
-        if (profile.dailyuser.phone_number) {
-            setPhone(profile.dailyuser.phone_number)
-        } else {
-            setPhone("")
-        }
+
+        setMonday(profile.dailyuser.monday)
     }, [profile])
 
 
@@ -135,6 +138,23 @@ export const ProfileForm = (props) => {
                 <h3>Text Reminder Preferences</h3>
 
                 {/* phone number */}
+                <Form.Group>
+                    <Form.Label>What phone number would you like to use for reminders?</Form.Label>
+                    <InputGroup>
+                    <InputGroup.Prepend>
+                        <InputGroup.Text id="countryCode">+1</InputGroup.Text>
+                    </InputGroup.Prepend>
+                        <Form.Control 
+                            ref={register}
+                            type='number'
+                            name='phone'
+                            defaultValue={profile.dailyuser.phone_number}
+                            minLength={10}
+                            maxLength={10}
+                            pattern='[0-9]*'
+                        />
+                    </InputGroup>
+                </Form.Group>
                 
                 {/* text time */}
                 <Form.Group controlId="form__textTime">
@@ -146,9 +166,19 @@ export const ProfileForm = (props) => {
                         defaultValue={profile.dailyuser.text_time} 
                         />
                 </Form.Group>
+                    <Form.Label>Which days of the week work best for you?</Form.Label>
                 {/* days of week to be texted */}
+                    <Form.Check 
+                        inline 
+                        className='custom-control custom-checkbox' 
+                        key='monday' 
+                        label='Monday' 
+                        type="checkbox" 
+                        name='monday' 
+                        checked={monday} 
+                        onChange={evt => evt.target.checked === true ? setMonday(false): setMonday(true)} />
                 <Form.Group>
-                
+
                 </Form.Group>
 
                 <Form.Group>
