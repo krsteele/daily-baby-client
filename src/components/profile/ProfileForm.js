@@ -104,7 +104,7 @@ export const ProfileForm = (props) => {
         <Container>
             <h2>Edit Profile and Preferences</h2>
             
-            <Image src={image} />
+            <Image src={image} roundedCircle/>
 
             <Form onSubmit={handleSubmit(profileUpdate)}>
 
@@ -149,9 +149,9 @@ export const ProfileForm = (props) => {
 
                 <h3>Text Reminder Preferences</h3>
                 {
-                    profile.userbabies.length < 0 
+                    profile.userbabies.length === 0 
                     ? (
-                        <Alert variant="warning">Please 
+                        <Alert variant="secondary">Please 
                             <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
                     ):(
                         ""

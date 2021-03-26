@@ -2,13 +2,16 @@ import React, { useContext, useEffect, useState } from "react"
 import { JournalContext } from "./JournalDataProvider"
 import { BabyContext } from "../baby/BabyDataProvider"
 import { useHistory } from "react-router-dom"
-
+import { Route } from "react-router-dom"
+// components
+import { AddEntryButton } from "./AddEntryButton"
+// react bootstrap
 import Card from 'react-bootstrap/Card'
 import Container from "react-bootstrap/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
-
+// font awesome
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +33,8 @@ export const JournalList = (props) => {
     return(
         <Container>
             <h1>Journal for {baby.baby.first_name}</h1>
+            <Route render={props => <AddEntryButton {...props} />} />
+
             <Row xs={1} sm={2} md={3} lg={4} xl={5}>
 
                 {

@@ -43,11 +43,8 @@ export const JournalLanding = (props) => {
                 <h3></h3>
                 <Route render={props => <AddChildButton {...props} />} />
                 {
-                    profile.userbabies.length < 0 
+                    profile.userbabies.length > 0 
                     ?
-                    <Alert variant="warning">Please 
-                            <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
-                    :
                     profile.userbabies.map(baby => {
                         return (
                             <Card border="primary" className="text-center" style={{ width: '18rem' }} key={baby.baby.id} onClick={() => history.push(`/journal/${baby.baby.id}`)}>
@@ -61,6 +58,9 @@ export const JournalLanding = (props) => {
                             </Card>
                         )
                     })
+                    :
+                    <Alert variant="secondary">Please 
+                            <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
                 }
             </div>
                 
