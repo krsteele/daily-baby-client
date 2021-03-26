@@ -28,7 +28,8 @@ export const ApplicationViews = () => {
                     <ProfileDataProvider>
                         <Route exact path="/" render={
                             props => <JournalLanding {...props} />
-                        } /><Route path="/journal/:babyId(\d+)" render={
+                        } />
+                        <Route path="/journal/:babyId(\d+)" render={
                             props => <JournalList {...props} />
                         } />
                         <Route exact path="/journal/create" render={

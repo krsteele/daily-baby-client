@@ -64,6 +64,7 @@ export const ProfileDetail = (props) => {
         setSelectedDays(days)
     }, [profile])
     
+    console.log("how many babies?", profile.userbabies.length)
     return(
         <Container>
             <div className="profile__personal">
@@ -91,9 +92,9 @@ export const ProfileDetail = (props) => {
                 <h3>Children</h3>
                 <Route render={props => <AddChildButton {...props} />} />
                 {
-                    profile.userbabies.length < 0 
+                    profile.userbabies.length === 0 
                     ?
-                    <Alert variant="warning">Please 
+                    <Alert variant="secondary">Please {" "}
                             <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
                     :
                     profile.userbabies.map(baby => {

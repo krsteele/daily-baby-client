@@ -16,7 +16,7 @@ export const JournalForm = (props) => {
     const { getEntry, addJournalEntry, updateJournalEntry, deleteEntry } = useContext(JournalContext)
     const { getBabies, babies } = useContext(BabyContext)
     
-    const [entry, setEntry] = useState({photo: {}, user_baby: {baby: {}, user: {user: {}}}})
+    const [entry, setEntry] = useState({photo: {}, user_baby: {baby: {}, user: {user: {}}}, comments: []})
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
     const [fileInputLabel, setFileInputLabel] = useState("Upload an image")
@@ -38,8 +38,8 @@ export const JournalForm = (props) => {
     const getEntryInEditMode = () => {
         if (editMode) {
             getEntry(entryId).then(setEntry).then(() => {
-                const entryImage = entry.photo.image
-                setEditModeImage(entryImage)
+                
+                setEditModeImage(entry.photo.image)
                 setFileInputLabel("Change Image")
             })
         } 
@@ -48,7 +48,7 @@ export const JournalForm = (props) => {
     // Called on form submit to create or edit the entry
     const entryAddOrUpdate = (data) => {
         if (editMode) {
-            data.image = editModeImage
+            data.image = editModeImage ? editModeImage : entry.photo.image
             data.id = entryId
             data.created_on = entry.created_on
             data.is_private = entry.is_private
@@ -131,7 +131,7 @@ export const JournalForm = (props) => {
                             <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label={fileInputLabel} onChange={uploadImage}  />
                                 {
                                     editMode && entry.by_current_user ? (
-                                        <Image src={editModeImage} fluid />
+                                        <Image src={editModeImage ? editModeImage : entry.photo.image} fluid />
                                     ) : (
                                         <Image src={image} fluid />
                                     )

@@ -126,9 +126,9 @@ export const BabyForm = (props) => {
                     }
                     {
                         editMode ? (
-                            <Image src={editModeImage} fluid />
+                            <Image src={editModeImage} roundedCircle />
                         ) : (
-                            <Image src={image} fluid />
+                            <Image src={image} roundedCircle />
                         )
                     }
 
