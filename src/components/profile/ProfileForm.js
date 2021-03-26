@@ -104,7 +104,7 @@ export const ProfileForm = (props) => {
         <Container>
             <h2>Edit Profile and Preferences</h2>
             
-            <Image src={image} />
+            <Image src={image} roundedCircle/>
 
             <Form onSubmit={handleSubmit(profileUpdate)}>
 
@@ -149,8 +149,14 @@ export const ProfileForm = (props) => {
 
                 <h3>Text Reminder Preferences</h3>
                 {
-                    
-                }
+                    profile.userbabies.length === 0 
+                    ? (
+                        <Alert variant="secondary">Please 
+                            <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
+                    ):(
+                        ""
+                    )
+                } 
 
                 <Form.Group>
                     <Form.Label>What phone number would you like to use for reminders?</Form.Label>
@@ -170,7 +176,6 @@ export const ProfileForm = (props) => {
                     </InputGroup>
                 </Form.Group>
                 
-                {/* text time */}
                 <Form.Group controlId="form__textTime">
                     <Form.Label>Time of day you would like to receive text reminders:</Form.Label>
                     <Form.Control 
@@ -257,7 +262,7 @@ export const ProfileForm = (props) => {
 
                 <Form.Group>
                     <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
-                    <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push("/profile")} >Cancel</Button>
+                    <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push("/profile")} >Cancel</Button>
                 </Form.Group>
             </Form>
         </Container>

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
 
 import { JournalContext } from "./JournalDataProvider"
 import { BabyContext } from "../baby/BabyDataProvider"
@@ -13,10 +14,12 @@ import Container from "react-bootstrap/Container"
 import Image from 'react-bootstrap/Image'
 
 export const JournalForm = (props) => {
+    const history = useHistory()
+
     const { getEntry, addJournalEntry, updateJournalEntry, deleteEntry } = useContext(JournalContext)
     const { getBabies, babies } = useContext(BabyContext)
     
-    const [entry, setEntry] = useState({photo: {}, user_baby: {baby: {}, user: {user: {}}}})
+    const [entry, setEntry] = useState({photo: {}, user_baby: {baby: {}, user: {user: {}}}, comments: []})
     const [image, setImage] = useState("")
     const [editModeImage, setEditModeImage] = useState("")
     const [fileInputLabel, setFileInputLabel] = useState("Upload an image")
@@ -38,8 +41,8 @@ export const JournalForm = (props) => {
     const getEntryInEditMode = () => {
         if (editMode) {
             getEntry(entryId).then(setEntry).then(() => {
-                const entryImage = entry.photo.image
-                setEditModeImage(entryImage)
+                
+                setEditModeImage(entry.photo.image)
                 setFileInputLabel("Change Image")
             })
         } 
@@ -48,7 +51,7 @@ export const JournalForm = (props) => {
     // Called on form submit to create or edit the entry
     const entryAddOrUpdate = (data) => {
         if (editMode) {
-            data.image = editModeImage
+            data.image = editModeImage ? editModeImage : entry.photo.image
             data.id = entryId
             data.created_on = entry.created_on
             data.is_private = entry.is_private
@@ -56,7 +59,7 @@ export const JournalForm = (props) => {
             data.userBaby = entry.user_baby.id
             console.log("update data", data)
             updateJournalEntry(data)
-                .then(() => props.history.push(`/journal/${entry.user_baby.baby.id}`))
+                .then(() => history.push(`/journal/${entry.user_baby.baby.id}`))
         } else {
             addJournalEntry({
                 text: data.text,
@@ -65,7 +68,7 @@ export const JournalForm = (props) => {
                 is_private: false,
                 prompt: 1
             })
-            .then(() => props.history.push(`/journal/${data.babyId}`))
+            .then(() => history.push(`/journal/${data.babyId}`))
         }
     }
 
@@ -121,7 +124,7 @@ export const JournalForm = (props) => {
                                 <option key="0">Who is your entry about?</option>
                                 
                                     {babies.map(baby => {
-                                        return <option key={baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
+                                        return <option key={baby+baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
                                     })}
                                 </Form.Control>
                                 )}
@@ -131,7 +134,7 @@ export const JournalForm = (props) => {
                             <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label={fileInputLabel} onChange={uploadImage}  />
                                 {
                                     editMode && entry.by_current_user ? (
-                                        <Image src={editModeImage} fluid />
+                                        <Image src={editModeImage ? editModeImage : entry.photo.image} fluid />
                                     ) : (
                                         <Image src={image} fluid />
                                     )
@@ -145,8 +148,8 @@ export const JournalForm = (props) => {
                                 editMode && entry.by_current_user ? (
                                     <Form.Group>
                                     <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
-                                    <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
-                                    <Button className="btn" variant="outline-primary" onClick={() => deleteEntry(entryId).then(()=> props.history.push("/journal"))}>Delete</Button>
+                                    <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
+                                    <Button className="btn" variant="outline-primary" onClick={() => deleteEntry(entryId).then(()=> history.push("/"))}>Delete</Button>
                                     </Form.Group>
                                 ):(
                                     <Form.Group>

@@ -1,10 +1,10 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Logout } from "../auth/Logout"
+import { AddEntryButton } from "../Journal/AddEntryButton"
 // React-Bootstrap Component imports
 import Navbar from "react-bootstrap/Navbar"
 import Nav from "react-bootstrap/Nav"
-import { AddEntryButton } from "../Journal/AddEntryButton"
 
 
 export const NavBar = (props) => {

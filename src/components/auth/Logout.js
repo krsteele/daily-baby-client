@@ -1,19 +1,22 @@
 import React from "react"
 import Button from "react-bootstrap/Button"
+import { useHistory } from "react-router-dom"
 
 
 export const Logout = (props) => {
+    const history = useHistory()
+
     const handleLogout = (e) => {
         e.preventDefault()
         localStorage.clear()
-        props.history.push("/login")
+        history.push("/login")
     } 
     
     return (
-                <form onSubmit={handleLogout}>
-                    <Button type="submit" size="lg" variant="primary">
+                
+                    <Button type="button" size="sm" variant="primary" onClick={(e) => handleLogout(e)}>
                         Log out
                     </Button>
-                </form>
+                
     )
 }

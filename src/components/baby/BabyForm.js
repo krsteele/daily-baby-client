@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
 
 import { BabyContext } from "../baby/BabyDataProvider"
 
@@ -15,6 +16,8 @@ import Image from "react-bootstrap/Image"
 
 
 export const BabyForm = (props) => {
+    const history = useHistory()
+
     const { getBaby, createBaby, updateBaby, getRelationships, relationships } = useContext(BabyContext)
     
     const [baby, setBaby] = useState({baby: {}, relationship: {}})
@@ -63,7 +66,7 @@ export const BabyForm = (props) => {
             data.profileImage = editModeImage
             data.id = babyId
             updateBaby(data)
-                .then(() => props.history.push("/profile"))
+                .then(() => history.push("/profile"))
         } else {
             createBaby({
                 firstName: data.firstName,
@@ -74,7 +77,7 @@ export const BabyForm = (props) => {
                 relationship: data.relationship,
                 profileImage: image
             })
-            .then(() => props.history.push("/profile"))
+            .then(() => history.push("/profile"))
         }
     }
 
@@ -109,7 +112,7 @@ export const BabyForm = (props) => {
         <>
             {
                 editMode && !parent ? (
-                    <Alert key="warning" variant="warning">
+                    <Alert key="danger" variant="danger">
                         You are not authorized to make changes to this child's profile.
                     </Alert>
                 ):(
@@ -126,9 +129,9 @@ export const BabyForm = (props) => {
                     }
                     {
                         editMode ? (
-                            <Image src={editModeImage} fluid />
+                            <Image src={editModeImage} roundedCircle />
                         ) : (
-                            <Image src={image} fluid />
+                            <Image src={image} roundedCircle />
                         )
                     }
 
@@ -213,7 +216,7 @@ export const BabyForm = (props) => {
                         editMode && parent ? (
                             <Form.Group>
                             <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
-                            <Button className="btn" variant="outline-primary" type="button" onClick={() => props.history.push("/profile")} >Cancel</Button>
+                            <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push("/profile")} >Cancel</Button>
                             </Form.Group>
                         ):(
                             <Form.Group>
