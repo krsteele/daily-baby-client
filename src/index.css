@@ -15,3 +15,7 @@ code {
 Button {
   margin: 10px;
 }
+
+fieldset {
+  margin-top: 10px;
+}
