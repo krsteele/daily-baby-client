@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import Button from "react-bootstrap/Button"
+import "./auth.css"
 
 
 
@@ -36,7 +37,8 @@ export const Login = () => {
     }
 
     return (
-        <main className="container--login">
+        <main className="">
+            <div className="login__background"></div>
         <dialog className="dialog dialog--auth" ref={invalidDialog}>
             <div>Email or password was not valid.</div>
             <button className="button--close" onClick={(e) => invalidDialog.current.close()}>
@@ -46,7 +48,7 @@ export const Login = () => {
         <section>
             <form className="form--login" onSubmit={handleLogin}>
             <h1>Daily Baby</h1>
-            <h2>Please sign in</h2>
+            <h3>Please sign in</h3>
             <fieldset>
                 <label htmlFor="inputUsername"> Username </label>
                 <input
