@@ -1,0 +1,16 @@
+.journal {
+    padding: 3%;
+}
+
+.journal__children {
+    display: flex;
+}
+
+.journal__child {
+    margin: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.5);
+}
+
+.journal__form {
+    margin: 10px;
+}
