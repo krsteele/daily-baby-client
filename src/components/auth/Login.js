@@ -2,6 +2,7 @@ import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import Button from "react-bootstrap/Button"
 import "./auth.css"
+import Logo from '../../images/daily-baby-logo-trans.png'
 
 
 
@@ -45,9 +46,14 @@ export const Login = () => {
             Close
             </button>
         </dialog>
+        <div className="login__form">
+
         <section>
-            <form className="form--login" onSubmit={handleLogin}>
-            <h1>Daily Baby</h1>
+            <div className="login__logo">
+                <img src={Logo} alt="Daily Baby logo" />
+                <h1>Daily Baby</h1>
+            </div>
+            <form onSubmit={handleLogin}>
             <h3>Please sign in</h3>
             <fieldset>
                 <label htmlFor="inputUsername"> Username </label>
@@ -76,9 +82,9 @@ export const Login = () => {
             </fieldset>
             <fieldset
                 style={{
-                textAlign: "center",
+                    textAlign: "center",
                 }}
-            >
+                >
                 <Button className="btn btn-1 btn-sep icon-send" type="submit">
                 Sign In
                 </Button>
@@ -88,6 +94,7 @@ export const Login = () => {
         <section className="link--register">
             <Link to="/register">Not a member yet?</Link>
         </section>
+                </div>
         </main>
     )
 }
