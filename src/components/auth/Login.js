@@ -38,7 +38,7 @@ export const Login = () => {
     }
 
     return (
-        <main className="">
+        <main style={{ textAlign: "center" }} className="">
             <div className="login__background"></div>
         <dialog className="dialog dialog--auth" ref={invalidDialog}>
             <div>Email or password was not valid.</div>
@@ -54,7 +54,7 @@ export const Login = () => {
                 <h1>Daily Baby</h1>
             </div>
             <form onSubmit={handleLogin}>
-            <h5>Please sign in</h5>
+            <h5 className="h3 mb-3 font-weight-normal">Please sign in</h5>
             <fieldset>
                 <label htmlFor="inputUsername"> Username </label>
                 <input
@@ -91,8 +91,6 @@ export const Login = () => {
             </fieldset>
             </form>
             <Link to="/register">Not a member yet?</Link>
-        </section>
-        <section className="link--register">
         </section>
                 </div>
         </main>

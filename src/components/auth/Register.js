@@ -1,6 +1,8 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import Button from "react-bootstrap/Button"
+import "./auth.css"
+import Logo from '../../images/daily-baby-logo-trans.png'
 
 
 export const Register = (props) => {
@@ -48,14 +50,21 @@ export const Register = (props) => {
 
     return (
         <main style={{ textAlign: "center" }}>
-        <dialog className="dialog dialog--password" ref={passwordDialog}>
-            <div>Passwords do not match</div>
-            <button className="button--close" onClick={(e) => passwordDialog.current.close()}>
-            Close
-            </button>
-        </dialog>
+            <div className="login__background"></div>
+            <dialog className="dialog dialog--password" ref={passwordDialog}>
+                <div>Passwords do not match</div>
+                <button className="button--close" onClick={(e) => passwordDialog.current.close()}>
+                Close
+                </button>
+            </dialog>
+            <div className="login__form">
 
-        <form className="form--login" onSubmit={handleRegister}>
+        <section>
+        <div className="login__logo">
+            <img src={Logo} alt="Daily Baby logo" className="logo__img" />
+            <h1>Daily Baby</h1>
+        </div>
+        <form className="" onSubmit={handleRegister}>
             <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
             <fieldset>
             <label htmlFor="firstName"> First Name </label>
@@ -134,9 +143,9 @@ export const Register = (props) => {
             </Button>
             </fieldset>
         </form>
-        <section className="link--register">
             Already registered? <Link to="/login">Login</Link>
         </section>
+        </div>
         </main>
     )
     }
