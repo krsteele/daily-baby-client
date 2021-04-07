@@ -12,7 +12,10 @@ import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
 import InputGroup from 'react-bootstrap/InputGroup'
-import { Row } from "react-bootstrap"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+
+import "./profile.css"
 
 
 export const ProfileForm = (props) => {
@@ -101,31 +104,35 @@ export const ProfileForm = (props) => {
 
 
     return (
-        <Container>
-            <h2>Edit Profile and Preferences</h2>
-            
+        <main>
+            <div className="profile">
+            <h1>Edit Profile and Preferences</h1>
+            <section className="journal__form">
+
             <Image src={image} roundedCircle/>
 
             <Form onSubmit={handleSubmit(profileUpdate)}>
+                <div className="profile__section">
+                <Form.Row>
+                    <Form.Group as={Col} controlId="form__firstName">
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control 
+                            ref={register({required: true})} 
+                            name="firstName" type="text" 
+                            defaultValue={profile.dailyuser.user.first_name} 
+                            style={{borderColor: errors.firstName && "red"}} />
+                    </Form.Group>
 
-                <Form.Group controlId="form__firstName">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control 
-                        ref={register({required: true})} 
-                        name="firstName" type="text" 
-                        defaultValue={profile.dailyuser.user.first_name} 
-                        style={{borderColor: errors.firstName && "red"}} />
-                </Form.Group>
-
-                <Form.Group controlId="form__lastName">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control 
-                        ref={register({required: true})} 
-                        name="lastName" 
-                        type="text" 
-                        defaultValue={profile.dailyuser.user.last_name} 
-                        style={{borderColor: errors.lastName && "red"}} />
-                </Form.Group>
+                    <Form.Group as={Col} controlId="form__lastName">
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control 
+                            ref={register({required: true})} 
+                            name="lastName" 
+                            type="text" 
+                            defaultValue={profile.dailyuser.user.last_name} 
+                            style={{borderColor: errors.lastName && "red"}} />
+                    </Form.Group>
+                </Form.Row>
 
                 <Form.Group controlId="form__email">
                     <Form.Label>Email address</Form.Label>
@@ -146,7 +153,8 @@ export const ProfileForm = (props) => {
                         label={fileInputLabel} 
                         onChange={uploadImage}  />
                 </Form.Group>
-
+                </div>
+                <div className="profile__section">
                 <h3>Text Reminder Preferences</h3>
                 {
                     profile.userbabies.length === 0 
@@ -155,11 +163,13 @@ export const ProfileForm = (props) => {
                             <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
                     ):(
                         ""
-                    )
-                } 
+                        )
+                    } 
 
-                <Form.Group>
-                    <Form.Label>What phone number would you like to use for reminders?</Form.Label>
+                <Form.Row>
+                <Form.Group as={Col}>
+
+                    <Form.Label>Phone Number</Form.Label>
                     <InputGroup>
                     <InputGroup.Prepend>
                         <InputGroup.Text id="countryCode">+1</InputGroup.Text>
@@ -172,12 +182,12 @@ export const ProfileForm = (props) => {
                             minLength={10}
                             maxLength={10}
                             pattern='[0-9]*'
-                        />
+                            />
                     </InputGroup>
                 </Form.Group>
                 
-                <Form.Group controlId="form__textTime">
-                    <Form.Label>Time of day you would like to receive text reminders:</Form.Label>
+                <Form.Group as={Col} controlId="form__textTime">
+                    <Form.Label>Time for reminders</Form.Label>
                     <Form.Control 
                         ref={register} 
                         type="time" 
@@ -185,9 +195,10 @@ export const ProfileForm = (props) => {
                         defaultValue={profile.dailyuser.text_time} 
                         />
                 </Form.Group>
+                </Form.Row>
 
                 <Form.Label>Which days of the week work best for you?</Form.Label>
-                <Form.Group as={Row} xs={1}>
+                <Form.Group className="checkbox__container" xs={1}>
                     <Form.Check 
                         inline 
                         ref={register}
@@ -259,13 +270,15 @@ export const ProfileForm = (props) => {
                         checked={sunday}
                         onChange={evt => setSunday(!sunday)} />
                 </Form.Group>
-
+                </div>
                 <Form.Group>
                     <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
                     <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push("/profile")} >Cancel</Button>
                 </Form.Group>
             </Form>
-        </Container>
+            </section>
+            </div>
+        </main>
     )
 
 }

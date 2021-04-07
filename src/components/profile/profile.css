@@ -1,0 +1,16 @@
+.profile {
+    padding: 3%;
+}
+
+.profile__form {
+    margin: 10px;
+}
+
+.checkbox__container {
+    display: flex;
+}
+
+.profile__section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
