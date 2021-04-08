@@ -229,7 +229,7 @@ export const BabyForm = (props) => {
                         ):(
                             <Form.Group>
                             <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
-                            <Button className="btn" variant="outline-primary" type="button" onClick={() => reset()} >Cancel</Button>
+                            <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push("/profile")} >Cancel</Button>
                             </Form.Group>
                             )
                         }                       
