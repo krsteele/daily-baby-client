@@ -12,6 +12,9 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
+import Col from "react-bootstrap/Col"
+
+import "./baby.css"
 
 
 
@@ -119,7 +122,8 @@ export const BabyForm = (props) => {
                     ""
                 )}
 
-                <Container>
+                <main>
+                    <div className="baby">
                     {
                         editMode && parent ? (
                             <h2>Edit Child's Profile</h2>
@@ -134,8 +138,17 @@ export const BabyForm = (props) => {
                             <Image src={image} roundedCircle />
                         )
                     }
-
+                    <section className="baby__form">
                     <Form onSubmit={handleSubmit(babyCreateUpdate)}>
+                    <Form.Group>
+                            <Form.File 
+                                ref={register} 
+                                name="profileImage" 
+                                key="profileImage" 
+                                id="profileImage" 
+                                label={fileInputLabel} 
+                                onChange={uploadImage}  />
+                        </Form.Group>
 
                         {editMode && parent ? (
                             ""
@@ -155,8 +168,9 @@ export const BabyForm = (props) => {
                                     </Form.Control>
                             </Form.Group>
                         )}  
+                        <Form.Row>
 
-                        <Form.Group controlId="form__firstName">
+                        <Form.Group as={Col} controlId="form__firstName">
                             <Form.Label>Child's First Name</Form.Label>
                             <Form.Control 
                                 ref={register({required: true})} 
@@ -165,7 +179,7 @@ export const BabyForm = (props) => {
                                 style={{borderColor: errors.firstName && "red"}} />
                         </Form.Group>
                         
-                        <Form.Group controlId="form__middleName">
+                        <Form.Group as={Col} controlId="form__middleName">
                             <Form.Label>Child's Middle Name</Form.Label>
                             <Form.Control 
                                 ref={register} 
@@ -174,7 +188,7 @@ export const BabyForm = (props) => {
                                 defaultValue={baby.baby.middle_name}  />
                         </Form.Group>
                         
-                        <Form.Group controlId="form__lastName">
+                        <Form.Group as={Col} controlId="form__lastName">
                             <Form.Label>Child's Last Name</Form.Label>
                             <Form.Control 
                                 ref={register({required: true})} 
@@ -182,17 +196,10 @@ export const BabyForm = (props) => {
                                 defaultValue={baby.baby.last_name} 
                                 style={{borderColor: errors.lastName && "red"}} />
                         </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
                         
-                        <Form.Group controlId="form__nickname">
-                            <Form.Label>Child's Nickname</Form.Label>
-                            <Form.Control 
-                                ref={register} 
-                                name="nickname" 
-                                type="text" 
-                                defaultValue={baby.baby.nickname} />
-                        </Form.Group>
-
-                        <Form.Group controlId="form__birthdate">
+                        <Form.Group as={Col} controlId="form__birthdate">
                             <Form.Label>Child's Birthdate</Form.Label>
                             <Form.Control 
                                 ref={register} 
@@ -201,16 +208,17 @@ export const BabyForm = (props) => {
                                 default value={baby.baby.birth_date} 
                                 />
                         </Form.Group>
-
-                        <Form.Group>
-                            <Form.File 
+                        <Form.Group as={Col} controlId="form__nickname">
+                            <Form.Label>Child's Nickname</Form.Label>
+                            <Form.Control 
                                 ref={register} 
-                                name="profileImage" 
-                                key="profileImage" 
-                                id="profileImage" 
-                                label={fileInputLabel} 
-                                onChange={uploadImage}  />
+                                name="nickname" 
+                                type="text" 
+                                defaultValue={baby.baby.nickname} />
                         </Form.Group>
+
+                        </Form.Row>
+                        
 
                         {
                         editMode && parent ? (
@@ -227,7 +235,9 @@ export const BabyForm = (props) => {
                         }                       
 
                     </Form>
-                </Container>
+                    </section>
+                    </div>
+                </main>
                 
         </>
     )
