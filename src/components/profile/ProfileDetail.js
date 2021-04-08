@@ -16,6 +16,8 @@ import Image from 'react-bootstrap/Image'
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
+import "./profile.css"
+
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -64,12 +66,13 @@ export const ProfileDetail = (props) => {
         setSelectedDays(days)
     }, [profile])
     
-    console.log("how many babies?", profile.userbabies.length)
     return(
-        <Container>
+        <main>
+            <div className="profile">
+
             <div className="profile__personal">
-                <Image src={profile.dailyuser.profile_image} roundedCircle />
                 <h1>Profile</h1>
+                <Image src={profile.dailyuser.profile_image} roundedCircle />
                 <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile & Preferences</Button>
                 <h3>Personal Information</h3>
                 <p><b>Name:</b> {profile.dailyuser.user.first_name} {profile.dailyuser.user.last_name}</p>
@@ -88,9 +91,12 @@ export const ProfileDetail = (props) => {
                         })
                     }
             </div>
-            <div className="profile__children">
+            <div>
                 <h3>Children</h3>
                 <Route render={props => <AddChildButton {...props} />} />
+                <div className="profile__children">
+
+                
                 {
                     profile.userbabies.length === 0 
                     ?
@@ -99,7 +105,7 @@ export const ProfileDetail = (props) => {
                     :
                     profile.userbabies.map(baby => {
                         return (
-                            <Card border="primary" className="text-center" style={{ width: '18rem' }} key={baby.baby.id}>
+                            <Card border="primary" className="profile__child text-center" style={{ width: '18rem' }} key={baby.baby.id}>
                                 <Card.Header>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</Card.Header>
                                 <Card.Body>
                                     <Image src={baby.baby.profile_image} roundedCircle />
@@ -127,7 +133,8 @@ export const ProfileDetail = (props) => {
                     })
                 }
             </div>
-                
-        </Container>
+            </div>
+            </div>
+        </main>
     )
 }

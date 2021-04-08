@@ -14,3 +14,12 @@
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.profile__children {
+    display: flex;
+}
+
+.profile__child {
+    margin: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.5);
+}
