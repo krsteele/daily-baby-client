@@ -15,10 +15,12 @@
     margin: 10px;
 }
 
-.journal--container {
+/* .journal--container {
     max-width: 100vw;
     height: auto;
     margin: 40px;
+    display: flex;
+    flex-wrap: wrap;
     column-count: 6;
 }
 
@@ -36,9 +38,10 @@
     .journal--container {
         column-count: 1;
     }
-}
+} */
 
 .col {
+    min-width: 18%;
     height: auto;
     break-inside: avoid-column;
     margin-bottom: 10px;

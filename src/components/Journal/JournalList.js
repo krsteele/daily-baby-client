@@ -18,6 +18,9 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import MagicGrid from "magic-grid"
+
+
 
 export const JournalList = (props) => {
     const history = useHistory()
@@ -25,11 +28,20 @@ export const JournalList = (props) => {
     const { getJournal, entries, deleteEntry } = useContext(JournalContext)
     const { getBaby } = useContext(BabyContext)
     const [baby, setBaby] = useState({baby: {}, relationship: {}})
+    const [entriesNum, setNum] = useState(0)
+
+    let magicGrid = new MagicGrid({
+        container: ".journal--container",
+        items: 12,
+        animate: true,
+    });
+
 
     useEffect(() => {
         const baby = parseInt(props.match.params.babyId)
         getBaby(baby).then(setBaby)
         getJournal(baby)
+        setNum(entries.length)
     }, [])
     console.log(baby)
     return(
@@ -52,30 +64,15 @@ export const JournalList = (props) => {
                                                 <Card.Img variant="top" src={entry.photo.image} />
                                             )
                                         }
-                                        <Card.Body>{entry.text}
-                                            {
-                                                entry.by_current_user ? (
-                                                    <ListGroup className="list-group-flush">
-                                                        <Row className="text-center">
-                                                            <Col>
-                                                                <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
-                                                            </Col>
-                                                            <Col>
-                                                                <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
-                                                            </Col>
-                                                        </Row>
-                                                    </ListGroup>
-                                                ):(
-                                                    ""
-                                                )
-                                            }
-                                        </Card.Body>
+                                        
                                         <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
                                 </div>
                         
                     })
                 }
+                {    magicGrid.listen()}
+}
                 </div>
             {/* </Row> */}
             </section>

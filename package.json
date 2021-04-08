@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^4.6.0",
     "bootswatch": "^4.6.0",
+    "magic-grid": "^3.2.4",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-datepicker": "^3.6.0",
