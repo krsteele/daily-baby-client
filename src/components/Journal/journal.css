@@ -14,3 +14,33 @@
 .journal__form {
     margin: 10px;
 }
+
+.journal--container {
+    max-width: 100vw;
+    height: auto;
+    margin: 40px;
+    column-count: 6;
+}
+
+@media (max-width: 1200px) {
+    .journal--container {
+        column-count: 4;
+    }
+}
+@media (max-width: 700px) {
+    .journal--container {
+        column-count: 3;
+    }
+}
+@media (max-width: 500px) {
+    .journal--container {
+        column-count: 1;
+    }
+}
+
+.col {
+    height: auto;
+    break-inside: avoid-column;
+    margin-bottom: 10px;
+    overflow: hidden;
+}

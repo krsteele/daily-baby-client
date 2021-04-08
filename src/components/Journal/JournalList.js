@@ -11,6 +11,8 @@ import Container from "react-bootstrap/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
+// CSS
+import "./journal.css"
 // font awesome
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -31,15 +33,16 @@ export const JournalList = (props) => {
     }, [])
     console.log(baby)
     return(
-        <Container>
+        <main>
+            <section className="journal">
             <h1>Journal for {baby.baby.first_name}</h1>
             <Route render={props => <AddEntryButton {...props} />} />
 
-            <Row xs={1} sm={2} md={3} lg={4} xl={5}>
-
+            {/* <Row xs={1} sm={2} md={3} lg={4} xl={5}> */}
+            <div className="journal--container">
                 {
                     entries.map(entry => {
-                        return  <Col key={entry.id+"entry"}>
+                        return  <div className="col" key={entry.id+"entry"}>
                                     <Card >
                                         {
                                             entry.photo === null ? (
@@ -69,12 +72,13 @@ export const JournalList = (props) => {
                                         </Card.Body>
                                         <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
-                                </Col>
+                                </div>
                         
                     })
                 }
-            </Row>
-            
-        </Container>
+                </div>
+            {/* </Row> */}
+            </section>
+        </main>
     )
 }
