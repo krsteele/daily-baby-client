@@ -38,11 +38,11 @@ export const Login = () => {
     }
 
     return (
-        <main style={{ textAlign: "center" }} className="">
+        <main style={{ textAlign: "center" }} className="auth--background">
             <div className="login__background"></div>
-        <dialog className="dialog dialog--auth" ref={invalidDialog}>
-            <div>Email or password was not valid.</div>
-            <button className="button--close" onClick={(e) => invalidDialog.current.close()}>
+        <dialog className="dialog dialog--auth modal-dialog" ref={invalidDialog}>
+            <div className="modal-content">Email or password was not valid.</div>
+            <button className="button--close btn btn-secondary" onClick={(e) => invalidDialog.current.close()}>
             Close
             </button>
         </dialog>
