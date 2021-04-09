@@ -8,18 +8,61 @@
 
 .checkbox__container {
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+    .checkbox__container {
+        display: block;
+    }
 }
 
 .profile__section {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 35px;
+    margin-bottom: 35px;
 }
 
 .profile__children {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .profile__child {
     margin: 10px;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.5);
+}
+
+.profile__info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info--card {
+    margin: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.5);
+}
+
+.info--personal {
+    flex: 1 20rem;
+}
+
+.info--preferences {
+    flex: 4 40rem;
+}
+
+
+.profile--image {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 15px;
+}
+
+.personal--content {
+    display: flex;
+    align-items: center;
+}
+
+.content--text {
+    min-width: 150px;
 }
