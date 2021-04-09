@@ -48,14 +48,13 @@ export const JournalList = (props) => {
                                             entry.photo === null ? (
                                                 ""
                                             ):(
-
                                                 <Card.Img variant="top" src={entry.photo.image} />
                                             )
                                         }
-                                        <Card.Body>{entry.text}
+                                        <Card.Body>{entry.text}</Card.Body>
                                             {
                                                 entry.by_current_user ? (
-                                                    <ListGroup className="list-group-flush">
+                                                    <Card.Body className="list-group-flush">
                                                         <Row className="text-center">
                                                             <Col>
                                                                 <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
@@ -64,12 +63,12 @@ export const JournalList = (props) => {
                                                                 <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
                                                             </Col>
                                                         </Row>
-                                                    </ListGroup>
+                                                    </Card.Body>
                                                 ):(
                                                     ""
                                                 )
                                             }
-                                        </Card.Body>
+                                        
                                         <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
                                 </div>
