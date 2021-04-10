@@ -69,7 +69,7 @@ export const ProfileDetail = (props) => {
         <main>
             <div className="profile">
                 <h1>Profile</h1>
-                <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile & Preferences</Button>
+                <Button className="btn" variant="primary" type="button" onClick={() => history.push("/profile/edit")} >Edit Profile</Button>
 
                 <div className="profile__info profile__section">
                     <div className="info--personal info--card card border-primary">
@@ -123,7 +123,7 @@ export const ProfileDetail = (props) => {
                                 :
                                 profile.userbabies.map(baby => {
                                     return (
-                                        <Card border="primary" className="profile__child text-center" style={{ width: '18rem' }} key={baby.baby.id}>
+                                        <Card border="primary" className="profile__child text-center" style={{ width: '18rem' }} key={baby+baby.baby.id}>
                                             <Card.Header>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</Card.Header>
                                             <Card.Body>
                                                 <Image src={baby.baby.profile_image} roundedCircle />
@@ -134,8 +134,7 @@ export const ProfileDetail = (props) => {
                                             </Card.Text>
                                             </Card.Body>
                                             <Card.Body> 
-                                                <Row>
-                                                    <Col>
+                                                <div className="icon__container">
                                                         <OverlayTrigger
                                                             key="journal"
                                                             placement="top"
@@ -145,11 +144,9 @@ export const ProfileDetail = (props) => {
                                                                 </Tooltip>
                                                             }
                                                             >
-                                                            <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
+                                                            <FontAwesomeIcon key="journal" className="icon" icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
                                                         </OverlayTrigger>    
 
-                                                    </Col>
-                                                    <Col>
                                                         <OverlayTrigger
                                                             key="editChild"
                                                             placement="top"
@@ -159,10 +156,9 @@ export const ProfileDetail = (props) => {
                                                                 </Tooltip>
                                                             }
                                                             >
-                                                            <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
+                                                            <FontAwesomeIcon key="edit" className="icon" icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
                                                         </OverlayTrigger>    
-                                                    </Col>
-                                                    <Col>
+                                                    
                                                         <OverlayTrigger
                                                             key="addEntry"
                                                             placement="top"
@@ -172,10 +168,9 @@ export const ProfileDetail = (props) => {
                                                                 </Tooltip>
                                                             }
                                                             >
-                                                            <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
+                                                            <FontAwesomeIcon key="entry" className="icon" icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
                                                         </OverlayTrigger>    
-                                                    </Col>
-                                                </Row>
+                                                    </div>
                                             </Card.Body>
                                         </Card>
                                     )

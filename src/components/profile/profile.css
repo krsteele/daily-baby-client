@@ -66,3 +66,12 @@
 .content--text {
     min-width: 150px;
 }
+
+.icon__container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon {
+    margin: 10px;
+}

@@ -53,8 +53,7 @@ export const JournalList = (props) => {
                                             {
                                                 entry.by_current_user ? (
                                                     <Card.Body className="list-group-flush">
-                                                        <Row className="text-center">
-                                                            <Col>
+                                                        <div className="icon__container">
                                                                 <OverlayTrigger
                                                                     key="edit"
                                                                     placement="top"
@@ -64,10 +63,9 @@ export const JournalList = (props) => {
                                                                         </Tooltip>
                                                                     }
                                                                     >
-                                                                    <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
+                                                                    <FontAwesomeIcon key="edit" className="icon" icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
                                                                 </OverlayTrigger>
-                                                            </Col>
-                                                            <Col>
+                                                            
                                                                 <OverlayTrigger
                                                                     key="delete"
                                                                     placement="top"
@@ -77,10 +75,9 @@ export const JournalList = (props) => {
                                                                         </Tooltip>
                                                                     }
                                                                     >
-                                                                    <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
+                                                                    <FontAwesomeIcon key="trash" className="icon" icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
                                                                 </OverlayTrigger>    
-                                                            </Col>
-                                                        </Row>
+                                                        </div>
                                                     </Card.Body>
                                                 ):(
                                                     ""
