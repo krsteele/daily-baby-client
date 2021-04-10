@@ -4,6 +4,7 @@
 
 .journal__children {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .journal__child {
