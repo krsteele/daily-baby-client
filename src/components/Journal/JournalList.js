@@ -7,10 +7,12 @@ import { Route } from "react-router-dom"
 import { AddEntryButton } from "./AddEntryButton"
 // react bootstrap
 import Card from 'react-bootstrap/Card'
-import Container from "react-bootstrap/Container"
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import ListGroup from 'react-bootstrap/ListGroup'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Row from 'react-bootstrap/Row'
+import Tooltip from 'react-bootstrap/Tooltip'
+// CSS
+import "./journal.css"
 // font awesome
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -29,52 +31,67 @@ export const JournalList = (props) => {
         getBaby(baby).then(setBaby)
         getJournal(baby)
     }, [])
-    console.log(baby)
     return(
-        <Container>
+        <main>
+            <section className="journal">
             <h1>Journal for {baby.baby.first_name}</h1>
             <Route render={props => <AddEntryButton {...props} />} />
 
-            <Row xs={1} sm={2} md={3} lg={4} xl={5}>
-
+            <div className="journal--container">
                 {
                     entries.map(entry => {
-                        return  <Col key={entry.id+"entry"}>
+                        return  <div className="col" key={entry.id+"entry"}>
                                     <Card >
                                         {
                                             entry.photo === null ? (
                                                 ""
                                             ):(
-
                                                 <Card.Img variant="top" src={entry.photo.image} />
                                             )
                                         }
-                                        <Card.Body>{entry.text}
+                                        <Card.Body>{entry.text}</Card.Body>
                                             {
                                                 entry.by_current_user ? (
-                                                    <ListGroup className="list-group-flush">
-                                                        <Row className="text-center">
-                                                            <Col>
-                                                                <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
-                                                            </Col>
-                                                            <Col>
-                                                                <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
-                                                            </Col>
-                                                        </Row>
-                                                    </ListGroup>
+                                                    <Card.Body className="list-group-flush">
+                                                        <div className="icon__container">
+                                                                <OverlayTrigger
+                                                                    key="edit"
+                                                                    placement="top"
+                                                                    overlay={
+                                                                        <Tooltip>
+                                                                            Edit journal entry.
+                                                                        </Tooltip>
+                                                                    }
+                                                                    >
+                                                                    <FontAwesomeIcon key="edit" className="icon" icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
+                                                                </OverlayTrigger>
+                                                            
+                                                                <OverlayTrigger
+                                                                    key="delete"
+                                                                    placement="top"
+                                                                    overlay={
+                                                                        <Tooltip>
+                                                                            Delete journal entry.
+                                                                        </Tooltip>
+                                                                    }
+                                                                    >
+                                                                    <FontAwesomeIcon key="trash" className="icon" icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
+                                                                </OverlayTrigger>    
+                                                        </div>
+                                                    </Card.Body>
                                                 ):(
                                                     ""
                                                 )
                                             }
-                                        </Card.Body>
-                                        <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
+                                        
+                                        <Card.Footer className="text-muted">by {entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
-                                </Col>
+                                </div>
                         
                     })
                 }
-            </Row>
-            
-        </Container>
+                </div>
+            </section>
+        </main>
     )
 }

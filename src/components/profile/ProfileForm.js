@@ -12,7 +12,10 @@ import Container from "react-bootstrap/Container"
 import Alert from "react-bootstrap/Alert"
 import Image from "react-bootstrap/Image"
 import InputGroup from 'react-bootstrap/InputGroup'
-import { Row } from "react-bootstrap"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+
+import "./profile.css"
 
 
 export const ProfileForm = (props) => {
@@ -101,171 +104,182 @@ export const ProfileForm = (props) => {
 
 
     return (
-        <Container>
-            <h2>Edit Profile and Preferences</h2>
-            
-            <Image src={image} roundedCircle/>
+        <main>
+            <div className="profile">
+                <h1>Edit Profile and Preferences</h1>
+                <section className="journal__form">
 
-            <Form onSubmit={handleSubmit(profileUpdate)}>
+                    <Image src={image} roundedCircle/>
 
-                <Form.Group controlId="form__firstName">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control 
-                        ref={register({required: true})} 
-                        name="firstName" type="text" 
-                        defaultValue={profile.dailyuser.user.first_name} 
-                        style={{borderColor: errors.firstName && "red"}} />
-                </Form.Group>
+                    <Form onSubmit={handleSubmit(profileUpdate)}>
+                        <div className="profile__section">
+                            <Form.Group>
+                                <Form.File 
+                                    ref={register} 
+                                    name="profileImage" 
+                                    key="profileImage" 
+                                    id="profileImage" 
+                                    label={fileInputLabel} 
+                                    onChange={uploadImage}  />
+                            </Form.Group>
+                            
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="form__firstName">
+                                    <Form.Label>First Name</Form.Label>
+                                    <Form.Control 
+                                        ref={register({required: true})} 
+                                        name="firstName" type="text" 
+                                        defaultValue={profile.dailyuser.user.first_name} 
+                                        style={{borderColor: errors.firstName && "red"}} />
+                                </Form.Group>
 
-                <Form.Group controlId="form__lastName">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control 
-                        ref={register({required: true})} 
-                        name="lastName" 
-                        type="text" 
-                        defaultValue={profile.dailyuser.user.last_name} 
-                        style={{borderColor: errors.lastName && "red"}} />
-                </Form.Group>
+                                <Form.Group as={Col} controlId="form__lastName">
+                                    <Form.Label>Last Name</Form.Label>
+                                    <Form.Control 
+                                        ref={register({required: true})} 
+                                        name="lastName" 
+                                        type="text" 
+                                        defaultValue={profile.dailyuser.user.last_name} 
+                                        style={{borderColor: errors.lastName && "red"}} />
+                                </Form.Group>
+                            </Form.Row>
 
-                <Form.Group controlId="form__email">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control 
-                        ref={register({required: true})}
-                        name="email"
-                        type="email" 
-                        defaultValue={profile.dailyuser.user.email}
-                        style={{borderColor: errors.email && "red"}} />
-                </Form.Group>
+                            <Form.Group controlId="form__email">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control 
+                                    ref={register({required: true})}
+                                    name="email"
+                                    type="email" 
+                                    defaultValue={profile.dailyuser.user.email}
+                                    style={{borderColor: errors.email && "red"}} />
+                            </Form.Group>
+                        </div>
 
-                <Form.Group>
-                    <Form.File 
-                        ref={register} 
-                        name="profileImage" 
-                        key="profileImage" 
-                        id="profileImage" 
-                        label={fileInputLabel} 
-                        onChange={uploadImage}  />
-                </Form.Group>
+                        <div className="profile__section">
+                            <h3>Text Reminder Preferences</h3>
+                            {
+                                profile.userbabies.length === 0 
+                                ? (
+                                    <Alert variant="secondary">Please 
+                                        <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
+                                ):(
+                                    ""
+                                    )
+                                } 
 
-                <h3>Text Reminder Preferences</h3>
-                {
-                    profile.userbabies.length === 0 
-                    ? (
-                        <Alert variant="secondary">Please 
-                            <Alert.Link href="/children/create">add a child</Alert.Link> to begin your journal.</Alert>
-                    ):(
-                        ""
-                    )
-                } 
+                            <Form.Row>
+                            <Form.Group as={Col}>
 
-                <Form.Group>
-                    <Form.Label>What phone number would you like to use for reminders?</Form.Label>
-                    <InputGroup>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text id="countryCode">+1</InputGroup.Text>
-                    </InputGroup.Prepend>
-                        <Form.Control 
-                            ref={register}
-                            type='number'
-                            name='phone'
-                            defaultValue={profile.dailyuser.phone_number}
-                            minLength={10}
-                            maxLength={10}
-                            pattern='[0-9]*'
-                        />
-                    </InputGroup>
-                </Form.Group>
-                
-                <Form.Group controlId="form__textTime">
-                    <Form.Label>Time of day you would like to receive text reminders:</Form.Label>
-                    <Form.Control 
-                        ref={register} 
-                        type="time" 
-                        name='textTime' 
-                        defaultValue={profile.dailyuser.text_time} 
-                        />
-                </Form.Group>
+                                <Form.Label>Phone Number</Form.Label>
+                                <InputGroup>
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text id="countryCode">+1</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                    <Form.Control 
+                                        ref={register}
+                                        type='number'
+                                        name='phone'
+                                        defaultValue={profile.dailyuser.phone_number}
+                                        minLength={10}
+                                        maxLength={10}
+                                        pattern='[0-9]*'
+                                        />
+                                </InputGroup>
+                            </Form.Group>
+                            
+                            <Form.Group as={Col} controlId="form__textTime">
+                                <Form.Label>Time for reminders</Form.Label>
+                                <Form.Control 
+                                    ref={register} 
+                                    type="time" 
+                                    name='textTime' 
+                                    defaultValue={profile.dailyuser.text_time} 
+                                    />
+                            </Form.Group>
+                            </Form.Row>
 
-                <Form.Label>Which days of the week work best for you?</Form.Label>
-                <Form.Group as={Row} xs={1}>
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='monday' 
-                        label='Monday' 
-                        type="checkbox" 
-                        name='monday' 
-                        checked={monday}
-                        onChange={evt => setMonday(!monday)} />
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='tuesday' 
-                        label='Tuesday' 
-                        type="checkbox" 
-                        name='tuesday' 
-                        checked={tuesday}
-                        onChange={evt => setTuesday(!tuesday)} />
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='wednesday' 
-                        label='Wednesday' 
-                        type="checkbox" 
-                        name='wednesday' 
-                        checked={wednesday}
-                        onChange={evt => setWednesday(!wednesday)} />
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='thursday' 
-                        label='Thursday' 
-                        type="checkbox" 
-                        name='thursday' 
-                        checked={thursday}
-                        onChange={evt => setThursday(!thursday)} />
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='friday' 
-                        label='Friday' 
-                        type="checkbox" 
-                        name='friday' 
-                        checked={friday}
-                        onChange={evt => setFriday(!friday)} />
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='saturday' 
-                        label='Saturday' 
-                        type="checkbox" 
-                        name='saturday' 
-                        checked={saturday}
-                        onChange={evt => setSaturday(!saturday)} />
-                    <Form.Check 
-                        inline 
-                        ref={register}
-                        className='custom-control custom-checkbox' 
-                        key='sunday' 
-                        label='Sunday' 
-                        type="checkbox" 
-                        name='sunday' 
-                        checked={sunday}
-                        onChange={evt => setSunday(!sunday)} />
-                </Form.Group>
-
-                <Form.Group>
-                    <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
-                    <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push("/profile")} >Cancel</Button>
-                </Form.Group>
-            </Form>
-        </Container>
+                            <Form.Label>Which days of the week work best for you?</Form.Label>
+                            <Form.Group className="checkbox__container" xs={1}>
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='monday' 
+                                    label='Monday' 
+                                    type="checkbox" 
+                                    name='monday' 
+                                    checked={monday}
+                                    onChange={evt => setMonday(!monday)} />
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='tuesday' 
+                                    label='Tuesday' 
+                                    type="checkbox" 
+                                    name='tuesday' 
+                                    checked={tuesday}
+                                    onChange={evt => setTuesday(!tuesday)} />
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='wednesday' 
+                                    label='Wednesday' 
+                                    type="checkbox" 
+                                    name='wednesday' 
+                                    checked={wednesday}
+                                    onChange={evt => setWednesday(!wednesday)} />
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='thursday' 
+                                    label='Thursday' 
+                                    type="checkbox" 
+                                    name='thursday' 
+                                    checked={thursday}
+                                    onChange={evt => setThursday(!thursday)} />
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='friday' 
+                                    label='Friday' 
+                                    type="checkbox" 
+                                    name='friday' 
+                                    checked={friday}
+                                    onChange={evt => setFriday(!friday)} />
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='saturday' 
+                                    label='Saturday' 
+                                    type="checkbox" 
+                                    name='saturday' 
+                                    checked={saturday}
+                                    onChange={evt => setSaturday(!saturday)} />
+                                <Form.Check 
+                                    inline 
+                                    ref={register}
+                                    className='custom-control custom-checkbox' 
+                                    key='sunday' 
+                                    label='Sunday' 
+                                    type="checkbox" 
+                                    name='sunday' 
+                                    checked={sunday}
+                                    onChange={evt => setSunday(!sunday)} />
+                            </Form.Group>
+                            </div>
+                            <Form.Group>
+                                <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
+                                <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push("/profile")} >Cancel</Button>
+                            </Form.Group>
+                    </Form>
+                </section>
+            </div>
+        </main>
     )
 
 }

@@ -13,6 +13,8 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Image from 'react-bootstrap/Image'
 
+import "./journal.css"
+
 export const JournalForm = (props) => {
     const history = useHistory()
 
@@ -103,62 +105,67 @@ export const JournalForm = (props) => {
     }
 
     return (
-                <Container>
-                    {
-                        editMode ? (
-                            <h2>Edit Journal Entry</h2>
-                        ):(
+                <main>
+                    <section className="journal">
 
-                            <h2>New Journal Entry</h2>
-                        )
-                    }
-
-                    <Form onSubmit={handleSubmit(entryAddOrUpdate)}>
-
-                        <Form.Group controlId="form__baby">
-                            <Form.Label>Child's Name</Form.Label>
-                                {editMode && entry.by_current_user ?(
-                                <Form.Control plaintext readOnly defaultValue={entry.user_baby.baby.first_name} />
-                                ) : (
-                                <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
-                                <option key="0">Who is your entry about?</option>
-                                
-                                    {babies.map(baby => {
-                                        return <option key={baby+baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
-                                    })}
-                                </Form.Control>
-                                )}
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label={fileInputLabel} onChange={uploadImage}  />
-                                {
-                                    editMode && entry.by_current_user ? (
-                                        <Image src={editModeImage ? editModeImage : entry.photo.image} fluid />
-                                    ) : (
-                                        <Image src={image} fluid />
-                                    )
-                                }
-                        </Form.Group>
-                        <Form.Group controlId="form__entry">
-                            <Form.Label>What wonderful things are happening in your baby's life right now?</Form.Label>
-                            <Form.Control as="textarea" rows={3} key="entryText" name="text" ref={register} defaultValue={entry.text} />
-                        </Form.Group>
-                            {
-                                editMode && entry.by_current_user ? (
-                                    <Form.Group>
-                                    <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
-                                    <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
-                                    <Button className="btn" variant="outline-primary" onClick={() => deleteEntry(entryId).then(()=> history.push("/"))}>Delete</Button>
-                                    </Form.Group>
+                        {
+                            editMode ? (
+                                <h1>Edit Journal Entry</h1>
                                 ):(
-                                    <Form.Group>
-                                    <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
-                                    <Button className="btn" variant="outline-primary" type="button" onClick={() => reset()} >Cancel</Button>
-                                    </Form.Group>
+                                    
+                                    <h1>New Journal Entry</h1>
                                     )
                                 }
-                    </Form>
-                </Container>
+
+                            <Form onSubmit={handleSubmit(entryAddOrUpdate)}>
+                                <div className="journal__form">
+
+                                <Form.Group controlId="form__baby">
+                                    <Form.Label>Child's Name</Form.Label>
+                                        {editMode && entry.by_current_user ?(
+                                            <Form.Control plaintext readOnly defaultValue={entry.user_baby.baby.first_name} />
+                                            ) : (
+                                                <Form.Control ref={register({valueAsNumber: true})} name="babyId" as="select">
+                                        <option key="0">Who is your entry about?</option>
+                                        
+                                            {babies.map(baby => {
+                                                return <option key={baby+baby.baby.id} value={baby.baby.id}>{baby.baby.first_name} {baby.baby.middle_name} {baby.baby.last_name}</option>
+                                            })}
+                                        </Form.Control>
+                                        )}
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.File ref={register} name="entryImage" key="entryImage" id="entryImage" label={fileInputLabel} onChange={uploadImage}  />
+                                        {
+                                            editMode && entry.by_current_user ? (
+                                                <Image src={editModeImage ? editModeImage : entry.photo.image} fluid />
+                                                ) : (
+                                                    <Image src={image} fluid />
+                                                    )
+                                                }
+                                </Form.Group>
+                                <Form.Group controlId="form__entry">
+                                    <Form.Label>What wonderful things are happening in your baby's life right now?</Form.Label>
+                                    <Form.Control as="textarea" rows={3} key="entryText" name="text" ref={register} defaultValue={entry.text} />
+                                </Form.Group>
+                                </div>
+                                    {
+                                        editMode && entry.by_current_user ? (
+                                            <Form.Group>
+                                            <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Update</Button>
+                                            <Button className="btn" variant="outline-primary" type="button" onClick={() => history.push(`/journal/${entry.user_baby.id}`)} >Cancel</Button>
+                                            <Button className="btn" variant="outline-primary" onClick={() => deleteEntry(entryId).then(()=> history.push("/"))}>Delete</Button>
+                                            </Form.Group>
+                                        ):(
+                                            <Form.Group>
+                                            <Button className="btn" variant="primary" type="submit" disabled={formState.isSubmitting}>Submit</Button>
+                                            <Button className="btn" variant="outline-primary" type="button" onClick={() => reset()} >Cancel</Button>
+                                            </Form.Group>
+                                            )
+                                        }
+                            </Form>
+                    </section>
+                </main>
             )
         }
