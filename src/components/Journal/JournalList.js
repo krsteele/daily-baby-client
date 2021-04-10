@@ -69,7 +69,7 @@ export const JournalList = (props) => {
                                                 )
                                             }
                                         
-                                        <Card.Footer className="text-muted">{entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
+                                        <Card.Footer className="text-muted">by {entry.user_baby.user.user.username} on {entry.created_on}</Card.Footer>
                                     </Card>
                                 </div>
                         
