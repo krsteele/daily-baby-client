@@ -50,7 +50,6 @@ export const Register = (props) => {
 
     return (
         <main style={{ textAlign: "center" }} className="auth--background">
-            <div className="login__background"></div>
             <dialog className="dialog dialog--password" ref={passwordDialog}>
                 <div>Passwords do not match</div>
                 <button className="button--close" onClick={(e) => passwordDialog.current.close()}>
