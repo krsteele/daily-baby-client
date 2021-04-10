@@ -37,7 +37,6 @@ export const JournalList = (props) => {
             <h1>Journal for {baby.baby.first_name}</h1>
             <Route render={props => <AddEntryButton {...props} />} />
 
-            {/* <Row xs={1} sm={2} md={3} lg={4} xl={5}> */}
             <div className="journal--container">
                 {
                     entries.map(entry => {
@@ -95,7 +94,6 @@ export const JournalList = (props) => {
                     })
                 }
                 </div>
-            {/* </Row> */}
             </section>
         </main>
     )
