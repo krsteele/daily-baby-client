@@ -2,22 +2,21 @@ import React, { useEffect, useState, useContext } from "react"
 import { Route } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 
-
 import { ProfileContext } from "./ProfileDataProvider"
 import { AddChildButton } from "../baby/AddChildButton"
 
-
 // react-bootstrap components
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
-import Image from 'react-bootstrap/Image'
-import Row from "react-bootstrap/Row"
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 import Col from "react-bootstrap/Col"
-
+import Image from 'react-bootstrap/Image'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Row from "react-bootstrap/Row"
+import Tooltip from 'react-bootstrap/Tooltip'
+// CSS
 import "./profile.css"
-
+// Font Awesome
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -137,13 +136,44 @@ export const ProfileDetail = (props) => {
                                             <Card.Body> 
                                                 <Row>
                                                     <Col>
-                                                        <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
+                                                        <OverlayTrigger
+                                                            key="journal"
+                                                            placement="top"
+                                                            overlay={
+                                                                <Tooltip>
+                                                                    View journal.
+                                                                </Tooltip>
+                                                            }
+                                                            >
+                                                            <FontAwesomeIcon icon={faBookOpen} onClick={() => props.history.push(`/journal/${baby.baby.id}`)} />
+                                                        </OverlayTrigger>    
+
                                                     </Col>
                                                     <Col>
-                                                        <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
+                                                        <OverlayTrigger
+                                                            key="editChild"
+                                                            placement="top"
+                                                            overlay={
+                                                                <Tooltip>
+                                                                    Edit child's information.
+                                                                </Tooltip>
+                                                            }
+                                                            >
+                                                            <FontAwesomeIcon icon={faEdit} onClick={() => props.history.push(`/children/edit/${baby.baby.id}`)} />
+                                                        </OverlayTrigger>    
                                                     </Col>
                                                     <Col>
-                                                        <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
+                                                        <OverlayTrigger
+                                                            key="addEntry"
+                                                            placement="top"
+                                                            overlay={
+                                                                <Tooltip>
+                                                                    Add journal entry.
+                                                                </Tooltip>
+                                                            }
+                                                            >
+                                                            <FontAwesomeIcon icon={faPlusCircle} onClick={() => props.history.push("/journal/create")} />
+                                                        </OverlayTrigger>    
                                                     </Col>
                                                 </Row>
                                             </Card.Body>
