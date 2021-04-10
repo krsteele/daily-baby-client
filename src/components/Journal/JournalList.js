@@ -65,11 +65,21 @@ export const JournalList = (props) => {
                                                                         </Tooltip>
                                                                     }
                                                                     >
-                                                                        <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
-                                                                    </OverlayTrigger>
+                                                                    <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
+                                                                </OverlayTrigger>
                                                             </Col>
                                                             <Col>
-                                                                <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
+                                                                <OverlayTrigger
+                                                                    key="delete"
+                                                                    placement="top"
+                                                                    overlay={
+                                                                        <Tooltip>
+                                                                            Delete journal entry.
+                                                                        </Tooltip>
+                                                                    }
+                                                                    >
+                                                                    <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
+                                                                </OverlayTrigger>    
                                                             </Col>
                                                         </Row>
                                                     </Card.Body>
