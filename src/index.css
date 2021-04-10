@@ -13,7 +13,8 @@ code {
 }
 
 Button {
-  margin-right: 10px;
+  margin: 10px;
+  max-width: 150px;
 }
 
 fieldset {
