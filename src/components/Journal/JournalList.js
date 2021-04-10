@@ -7,10 +7,10 @@ import { Route } from "react-router-dom"
 import { AddEntryButton } from "./AddEntryButton"
 // react bootstrap
 import Card from 'react-bootstrap/Card'
-import Container from "react-bootstrap/Container"
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import ListGroup from 'react-bootstrap/ListGroup'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Row from 'react-bootstrap/Row'
+import Tooltip from 'react-bootstrap/Tooltip'
 // CSS
 import "./journal.css"
 // font awesome
@@ -31,7 +31,6 @@ export const JournalList = (props) => {
         getBaby(baby).then(setBaby)
         getJournal(baby)
     }, [])
-    console.log(baby)
     return(
         <main>
             <section className="journal">
@@ -57,7 +56,17 @@ export const JournalList = (props) => {
                                                     <Card.Body className="list-group-flush">
                                                         <Row className="text-center">
                                                             <Col>
-                                                                <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
+                                                                <OverlayTrigger
+                                                                    key="edit"
+                                                                    placement="top"
+                                                                    overlay={
+                                                                        <Tooltip>
+                                                                            Edit journal entry.
+                                                                        </Tooltip>
+                                                                    }
+                                                                    >
+                                                                        <FontAwesomeIcon icon={faEdit} onClick={() => history.push(`/journal/edit/${entry.id}`)} />
+                                                                    </OverlayTrigger>
                                                             </Col>
                                                             <Col>
                                                                 <FontAwesomeIcon icon={faTrash} onClick={() => deleteEntry(entry.id).then(()=> getJournal(baby.baby.id).then(() => history.push(`/journal/${baby.baby.id}`)))} />
