@@ -76,34 +76,33 @@ export const Login = () => {
                 <img src={Logo} alt="Daily Baby logo" className="logo__img" />
                 <h1>Daily Baby</h1>
             </div>
-            <form onSubmit={handleLogin}>
+
+            <Form onSubmit={handleLogin}>
             <h5 className="h3 mb-3 font-weight-normal">Please sign in</h5>
-            <fieldset>
-                <label htmlFor="inputUsername"> Username </label>
-                <input
+            <Form.Group controlId="formUsername">
+                <Form.Label> Username </Form.Label>
+                <Form.Control
                 ref={username}
                 type="username"
-                id="username"
                 className="form-control"
                 defaultValue="me@me.com"
                 placeholder="Username"
                 required
                 autoFocus
                 />
-            </fieldset>
-            <fieldset>
-                <label htmlFor="inputPassword"> Password </label>
-                <input
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+                <Form.Label> Password </Form.Label>
+                <Form.Control
                 ref={password}
                 type="password"
-                id="password"
                 className="form-control"
                 defaultValue="me"
                 placeholder="Password"
                 required
                 />
-            </fieldset>
-            <fieldset
+            </Form.Group>
+            <Form.Group
                 style={{
                     textAlign: "center",
                 }}
@@ -111,8 +110,8 @@ export const Login = () => {
                 <Button className="btn btn-1 btn-sep icon-send" type="submit">
                 Sign In
                 </Button>
-            </fieldset>
-            </form>
+            </Form.Group>
+            </Form>
             <Link to="/register">Not a member yet?</Link>
         </section>
                 </div>
